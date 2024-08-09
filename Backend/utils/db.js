@@ -1,33 +1,20 @@
-import { MongoClient } from "mongodb";
+const mongoose = require("mongoose");
 
-class DBClient {
-  constructor() {
-    const host = process.env.DB_HOST || "localhost";
-    const port = process.env.BD_PORT || 27017;
-    const database = process.env.DB_DATABASE || "FIBEily_Reading_Hub";
-    this.client = new MongoClient(`mongodb://${host}:${port}/${database}`, {
-      useUnifiedTopology: true,
-    });
-    this.client.connect((error) => {
-      if (!error) this.db = this.client.db(database);
-    });
-  }
+// MongoDB connection URI
+const mongoURI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/fibely-reading_hub";
 
-  async bookUsers() {
-    const collection = this.db.collection("users");
-    const count = await collection.countDocuments();
-    return count;
-  }
+// Connect to MongoDB
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+  });
 
-  async bookFiles() {
-    const collection = this.db.collection("files");
-    const count = await collection.countDocuments();
-    return count;
-  }
-
-  async close() {
-    await this.mongoClient.close();
-  }
-}
-const dbClient = new DBClient();
-export default dbClient;
+module.exports = mongoose;

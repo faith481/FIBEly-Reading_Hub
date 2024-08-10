@@ -12,14 +12,14 @@ const Navbar = () => {
             <p>SHOPPER</p>
         </div>
         <ul className='nav-menu'>
-            <li onClick={()=>{setMenu("shop")}}>Shop {menu==="shop"?<hr/>:<></>}</li>
-            <li onClick={()=>{setMenu("fictions")}}>Fiction {menu==="fictions"?<hr/>:<></>}</li>
-            <li onClick={()=>{setMenu("Non-fictions")}}>Non-Fiction {menu==="Non-fictions"?<hr/>:<></>}</li>
-            <li onClick={()=>{setMenu("others")}}>Others {menu==="others"?<hr/>:<></>}</li>
+            <li onClick={()=>{setMenu("shop")}}> <link to='/'>Shop</link>{menu==="shop"?<hr/>:<></>}</li>
+            <li onClick={()=>{setMenu("fictions")}}><link  to='/fiction'>Fiction</link> {menu==="fictions"?<hr/>:<></>}</li>
+            <li onClick={()=>{setMenu("Non-fictions")}}> <link to='/Non-Fiction'>Non-fiction</link> {menu==="Non-fictions"?<hr/>:<></>}</li>
+            <li onClick={()=>{setMenu("others")}}><link to='/others'>Others</link> {menu==="others"?<hr/>:<></>}</li>
         </ul>
         <div className='nav-login-cart'>
-            <button>Login</button>
-            <img src={cart_icon} alt=''/>
+            <link to='/login'><button>Login</button></link>
+            <link to='/cart'><img src={cart_icon} alt=''/></link>
             <div className='nav-cart-count'>0</div>
         </div>
     </div>

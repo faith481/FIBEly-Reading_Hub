@@ -1,15 +1,17 @@
 import './App.css';
-import Navbar from './components/Navbar/Navbar.jsx'
-import { BrowsRouter, Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar/Navbar.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Books from './pages/Books.jsx';
+import Bookscategory from './pages/Bookscategory.jsx';
+import Shop from './pages/Shop.jsx';
 
 function App() {
   return (
     <div>
-      <BrowsRouter>
+      <BrowserRouter>
       <Navbar/>
       <Routes>
-        <Route path='/' element={<shop/>}/>
+        <Route path='/' element={<Shop/>}/>
         <Route path='/fictions' element={<Bookscategory category="fiction"/>}/>
         <Route path='/Non-fiction' element={<Bookscategory category="non-fiction"/>}/>
         <Route path='/others' element={<Bookscategory category="others"/>}/>
@@ -19,7 +21,7 @@ function App() {
         <Route path='/login' element={<loginSignup/>}/>
       </Routes>
 
-      </BrowsRouter>
+      </BrowserRouter>
     </div>
   );
 }

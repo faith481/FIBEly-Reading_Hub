@@ -24,7 +24,8 @@
     transition: 0.6s;
 }
 .item img{
-    width: 200px;
+    width: 100px;
+    width: 100%;
     height: auto;
-    border: 2px solid black;
+    object-fit: cover;
 }

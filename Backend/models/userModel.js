@@ -1,17 +1,59 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const userSchema = new mongoose.Schema({
+// Define sub-schema for the Publisher role
+const publisherSchema = new Schema({
+  booksUploaded: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
+});
+
+// Define sub-schema for the Normal Reader role
+const readerSchema = new Schema({
+  booksRead: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
+  cart: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
+  // Add other fields specific to readers if needed
+});
+
+// Define the main User schema
+const userSchema = new Schema({
+  userID: {
+    type: Schema.Types.ObjectId,
+    auto: true, // Automatically generate ObjectId
+  },
+  username: {
+    type: String,
+    unique: false, // username is optional
+  },
   email: {
     type: String,
     required: true,
     unique: true,
-    trim: true,
-    lowercase: true,
   },
-  password: {
+  passwordHash: {
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ["reader", "publisher", "admin"],
+    required: true,
+  },
+  publisher: publisherSchema,
+  reader: readerSchema,
   createdAt: {
     type: Date,
     default: Date.now,
@@ -22,11 +64,31 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Pre-save middleware to update the updatedAt field before each save
+// Middleware to update the `updatedAt` field before saving
 userSchema.pre("save", function (next) {
   this.updatedAt = Date.now();
   next();
 });
+
+// User authentication method
+userSchema.statics.findByCredentials = async function (identifier, password) {
+  // Try to find the user by email or username
+  const user = await this.findOne({
+    $or: [{ email: identifier }, { username: identifier }],
+  });
+
+  if (!user) {
+    throw new Error("Invalid login credentials");
+  }
+
+  // Check if the password matches the stored hash
+  const isMatch = await bcrypt.compare(password, user.passwordHash);
+  if (!isMatch) {
+    throw new Error("Invalid login credentials");
+  }
+
+  return user;
+};
 
 const User = mongoose.model("User", userSchema);
 

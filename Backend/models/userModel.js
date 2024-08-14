@@ -50,6 +50,7 @@ const userSchema = new Schema({
   role: {
     type: String,
     enum: ["reader", "publisher", "admin"],
+    default: "reader",
     required: true,
   },
   publisher: publisherSchema,

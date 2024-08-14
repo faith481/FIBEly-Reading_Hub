@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Books from './pages/Books.jsx';
 import Bookscategory from './pages/Bookscategory.jsx';
 import Shop from './pages/Shop.jsx';
+import Footer from './components/Footer/Footer.jsx';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path='/cart' element={<cart/>}/>
         <Route path='/login' element={<loginSignup/>}/>
       </Routes>
-
+      <Footer/>
       </BrowserRouter>
     </div>
   );

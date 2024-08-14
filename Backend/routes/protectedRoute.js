@@ -6,7 +6,7 @@ const pRouter = express.Router();
 pRouter.get("/dashboard", authenticateJWT, (req, res) => {
   try {
     console.log("User:", req.user);
-    res.json({ message: `Welcome to the dashboard,  ${req.user.userId}` });
+    res.json({ message: `Welcome to the dashboard,  ${req.user.userName}` });
     //{req.user.username}
   } catch (error) {
     console.error(error);

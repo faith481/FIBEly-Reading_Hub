@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import './CSS/BookCategory.css'
+import { BookContext } from '../context/BookContext'
 
-const Bookscategory = () => {
+const Bookscategory = (props) => {
+  const {all_product} = useContext(BookContext)
   return (
-    <div>
-      
+    <div className='book-category'>
+      <img src={props.banner} alt=''/>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const loginSignup = () => {
+const LoginSignup = () => {
   return (
     <div className='loginsignup'>
       <div className="divloginsignup-container">
@@ -9,7 +9,7 @@ const loginSignup = () => {
           <input type='text' placeholder='your Name' />
           <input type='text' placeholder='email address' />
           <input type='password' placeholder='password' />
-          <input type='password' placeholder='password' />
+          <input type='password' placeholder='Confirm password' />
         </div>
         <button>Continue</button>
         <p className='loginsignup-login'>Already have an account? <span>Login here</span></p>
@@ -23,4 +23,4 @@ const loginSignup = () => {
   )
 }
 
-export default loginSignup
+export default LoginSignup

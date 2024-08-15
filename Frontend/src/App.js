@@ -1,5 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar.jsx';
+import LoginSignup from './pages/LoginSignup.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Books from './pages/Books.jsx';
 import Bookscategory from './pages/Bookscategory.jsx';
@@ -23,7 +24,7 @@ function App() {
         <Route path='/Books' element={<Books/>}/>
           <Route path=':productId' element={ <Books/>}/>
         <Route path='/cart' element={<cart/>}/>
-        <Route path='/login' element={<loginSignup/>}/>
+        <Route path='/login' element={<LoginSignup/>}/>
       </Routes>
       <Footer/>
       </BrowserRouter>

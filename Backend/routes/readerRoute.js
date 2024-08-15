@@ -1,5 +1,10 @@
+const express = require("express");
+const rRouter = express.Router();
+const Book = require("../models/booksModel");
+const requireRole = require("../middleware/middleRole");
+
 // Add a book to the user's cart
-router.post("/cart", async (req, res) => {
+rRouter.post("/cart", async (req, res) => {
   try {
     const { bookId } = req.body;
     const user = await User.findById(req.user._id);
@@ -12,7 +17,7 @@ router.post("/cart", async (req, res) => {
 });
 
 // View user's cart
-router.get("/cart", async (req, res) => {
+rRouter.get("/cart", async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate("cart");
     res.status(200).json({ cart: user.cart });
@@ -20,3 +25,5 @@ router.get("/cart", async (req, res) => {
     res.status(500).json({ message: "Error retrieving cart", error });
   }
 });
+
+module.exports = rRouter;

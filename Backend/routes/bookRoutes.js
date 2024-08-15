@@ -6,8 +6,14 @@ const requireRole = require("../middleware/middleRole");
 // Upload a new book
 bRouter.post("/upload", requireRole("publisher"), async (req, res) => {
   try {
-    const { title, author, genre, publisher } = req.body;
-    const newBook = new Book({ title, author, genre, publisher: req.user._id });
+    const { title, author, genre, publicationDate, publisher } = req.body;
+    const newBook = new Book({
+      title,
+      author,
+      genre,
+      publicationDate,
+      publisher,
+    });
     await newBook.save();
     res
       .status(201)

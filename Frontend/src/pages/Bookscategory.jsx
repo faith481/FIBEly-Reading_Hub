@@ -9,7 +9,7 @@ const Bookscategory = (props) => {
   const {all_product} = useContext(BookContext)
   return (
     <div className='book-category'>
-      <img src={props.banner} alt=''/>
+      <img className='bookcategory-banner' src={props.banner} alt=''/>
       <div className="bookcategory-indexsort">
         <p>
           <span>Showing 1-12</span> out of 36 books
@@ -27,6 +27,9 @@ const Bookscategory = (props) => {
             return null;
           }
         })}
+      </div>
+      <div className="divbookcategory-loadmore">
+        Explore More
       </div>
     </div>
   )

@@ -4,3 +4,12 @@
     background: linear-gradient(180deg, white 0%, rgb(81, 240, 81) 50%);
     padding-top: 100px;
 }
+.loginsignup-container{
+    width: 580px;
+    height: 600px;
+    background: white;
+    margin: auto;
+    padding: 40px 60px;
+    
+
+}

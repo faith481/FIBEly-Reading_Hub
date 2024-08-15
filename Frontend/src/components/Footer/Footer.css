@@ -2,9 +2,10 @@
     display:flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
     align-items: center;
     gap: 50px;
-    background: linear-gradient(180deg, gray 0%, rgb(81, 240, 81) 50%);
+    background: linear-gradient(180deg, white 0%, rgb(81, 240, 81) 50%);
 }
 .footer-logo {
     display: flex;

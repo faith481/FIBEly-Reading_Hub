@@ -1,7 +1,7 @@
 const express = require("express");
 const rRouter = express.Router();
 const Book = require("../models/booksModel");
-const requireRole = require("../middleware/requireRole");
+const requireRole = require("../middleware/middleRole");
 
 // Add a book to the user's cart
 rRouter.post("/cart", async (req, res) => {

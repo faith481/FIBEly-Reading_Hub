@@ -49,8 +49,7 @@ function displayReview(review) {
         <p class="rating">Rating: ${'★'.repeat(review.rating)}</p>
     `;
 
-    reviewList.appendChild(reviewElement);
-}
+    reviewList.appendChild(reviewElement);}
 
 // Load existing reviews on page load
 window.onload = function() {

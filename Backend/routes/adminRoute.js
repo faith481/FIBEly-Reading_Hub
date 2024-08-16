@@ -1,6 +1,6 @@
 const express = require("express");
 const admRouter = express.Router();
-const Book = require("../models/booksModel");
+const User = require("../models/userModel");
 const requireRole = require("../middleware/middleRole");
 
 // Admin: Get all users

@@ -6,7 +6,7 @@ const protectedRoutes = require("./protectedRoute");
 const adminRoutes = require("./adminRoute");
 const bookRoutes = require("./bookRoutes");
 const readerRoutes = require("./readerRoute");
-const cartRoutes = require("./cartRoutes")
+const cartRoutes = require("./cartRoutes");
 
 // User Authentication Routes
 router.use("/auth", authRoutes);

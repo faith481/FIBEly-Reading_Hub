@@ -1,10 +1,10 @@
 const express = require("express");
-const router = express.Router();
+const cRouter = express.Router();
 const Cart = require("../models/Cart");
 const authenticateJWT = require("../middleware/authenticateJWT");
 
 // Add book to cart
-router.post("/cart/add", authenticateJWT, async (req, res) => {
+cRouter.post("/add", authenticateJWT, async (req, res) => {
   try {
     const { bookId } = req.body;
 
@@ -27,4 +27,4 @@ router.post("/cart/add", authenticateJWT, async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = cRouter;

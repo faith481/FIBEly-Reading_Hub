@@ -24,12 +24,12 @@
     height: auto;
     width: 100%;
     padding-left: 20px;
-    border: 1px solid rgba(128, 128, 128, 0.128);
+    border: 1px solid rgba(17, 16, 16, 0.657);
     outline: none;
-    color: rgba(128, 128, 128, 0.414);
+    color: rgba(8, 5, 5, 0.927);
     font-size: 18px;
 }
-.loginsignup-container button{
+loginsignup-container button{
     width: 580px;
     height: auto;
     color: white;
@@ -39,4 +39,21 @@
     font-size: 18px;
     font-weight: 500;
     cursor: pointer;
+}
+.loginsignup-container button {
+    width: 157px;
+    height: 40px;
+    outline: none;
+    border: 1px solid olivedrab;
+    border-radius: 75px;
+    margin-top: 20px;
+    float: right;
+    color: #515151;
+    font-size: 20px;
+    font-weight: 500;
+    background: rgb(74, 239, 107);
+    cursor: pointer;
+}
+.loginsignup-container button:active{
+    background: #98ed89e7;
 }

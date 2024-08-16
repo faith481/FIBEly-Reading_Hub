@@ -57,3 +57,22 @@ loginsignup-container button{
 .loginsignup-container button:active{
     background: #98ed89e7;
 }
+.loginsignup-login{
+    margin-top: 20px;
+    color: #515151;
+    font-size: 18px;
+    font-weight: 500;
+}
+.loginsignup-login span{
+    color: red;
+    font-weight: 600;
+}
+.loginsignup-agree{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+    color: #515151;
+    font-size: 18px;
+    font-weight: 500;
+}

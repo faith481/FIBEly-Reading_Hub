@@ -1,6 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar.jsx";
-import LoginSignup from "./pages/loginSignup.jsx";
+import Signup from "./pages/loginSignup.jsx";
+import Login from "./pages/login.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Books from "./pages/Books.jsx";
 import Bookscategory from "./pages/Bookscategory.jsx";
@@ -39,7 +40,8 @@ function App() {
           <Route path="/Books" element={<Books />} />
           <Route path=":productId" element={<Books />} />
           <Route path="/cart" element={<cart />} />
-          <Route path="/signup" element={<LoginSignup />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -124,7 +124,7 @@ Response: 200 OK with the cart details.
 Testing: Send a GET request to /cart.
 
 
-Protected Routes
+**Protected Routes**
 1. Dashboard
 Endpoint: GET /protected/dashboard
 Description: Access the user dashboard.

@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
 // MongoDB connection URI
-const mongoURI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/fibely-reading_hub";
+const mongoURI = process.env.MONGODB_URI;
 
 // Connect to MongoDB
 mongoose

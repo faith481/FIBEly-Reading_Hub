@@ -25,6 +25,6 @@ const connectRedis = async () => {
 };
 
 // Call the async function to connect
-connectRedis();
+//connectRedis();
 
 module.exports = redisClient;

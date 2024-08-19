@@ -1,7 +1,7 @@
 import React from "react";
 import "./CSS/LoginSignup.css";
 
-const LoginSignup = () => {
+const Signup = () => {
   return (
     <div className="loginsignup">
       <div className="loginsignup-container">
@@ -25,4 +25,4 @@ const LoginSignup = () => {
   );
 };
 
-export default LoginSignup;
+export default Signup;

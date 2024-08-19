@@ -1,4 +1,4 @@
-**FIBEly Reading Hub - Book API Documentation**
+**FIBEly Reading Hub - Book Backend API Documentation**
 
 Base URL
 ```

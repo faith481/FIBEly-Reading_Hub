@@ -9,7 +9,6 @@ import Bookscategory from "./pages/Bookscategory.jsx";
 import Shop from "./pages/shop.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
-
 function App() {
   const location = useLocation();
 
@@ -22,7 +21,7 @@ function App() {
       {!isLandingPage && !isLoginSignup && <Navbar />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/shop" element={<Shop />} />
+        <Route path="/home" element={<Shop />} />
         <Route path="/fiction" element={<Bookscategory category="fiction" />} />
         <Route
           path="/Non-fiction"

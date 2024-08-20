@@ -5,7 +5,7 @@ import Popular from "../components/Popular/Popular";
 import NewCollections from "../components/NewCollections/NewCollections";
 //import NewsLetter from "../components/NewsLetter/NewsLetter";
 
-const Home = () => {
+const Shop = () => {
   return (
     <div>
       <Popular />
@@ -14,4 +14,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Shop;

@@ -1,4 +1,4 @@
-.welcome {
+.logout-container {
   display: flex;
   flex-direction: column;
   background-image: url("https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?fit=crop&w=1600&q=80");
@@ -6,30 +6,32 @@
   justify-content: center;
   height: 100vh;
   background-color: #f7f7f7;
-  padding: 20px;
 }
 
-.welcome h1 {
-  font-size: 36px;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.welcome p {
-  font-size: 18px;
-  color: #666;
+.logout-header {
+  font-size: 24px;
+  font-weight: bold;
   margin-bottom: 20px;
 }
 
-.welcome-button {
+.logout-button {
   background-color: #4caf50;
   color: #fff;
-  border: none;
   padding: 10px 20px;
-  font-size: 16px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.welcome-button:hover {
+.logout-button:hover {
   background-color: #3e8e41;
+}
+
+.logout-link {
+  text-decoration: none;
+  color: #4caf50;
+}
+
+.logout-link:hover {
+  color: #3e8e41;
 }

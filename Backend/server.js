@@ -7,9 +7,12 @@ const mongoose = require("./utils/db");
 //const authenticateJWT = require("./middleware/middleAuth");
 const route = require("./routes/route");
 //const user = require("./models/userModel");
+const cors = require("cors");
 
 const app = express();
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
+
 // Session middleware using Redis
 app.use(
   session({

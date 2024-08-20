@@ -9,6 +9,7 @@ import Bookscategory from "./pages/Bookscategory.jsx";
 import Shop from "./pages/shop.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
+import Welcome from "./pages/Welcome";
 function App() {
   const location = useLocation();
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/cart" element={<cart />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+	<Route path="/welcome/:username" element={<Welcome />} />
       </Routes>
       {!isLandingPage && !isLoginSignup && <Footer />}
     </div>

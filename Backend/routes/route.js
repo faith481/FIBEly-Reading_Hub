@@ -7,6 +7,7 @@ const adminRoutes = require("./adminRoute");
 const bookRoutes = require("./bookRoutes");
 const readerRoutes = require("./readerRoute");
 const cartRoutes = require("./cartRoutes");
+const paymentRoutes = require('./payment_route');
 
 // User Authentication Routes
 router.use("/auth", authRoutes);
@@ -17,6 +18,9 @@ router.use("/protected", protectedRoutes);
 
 // Book Routes (accessible by publishers and readers)
 router.use("/books", authenticateJWT, bookRoutes);
+
+// Pament Routes
+router.use("/payment", authenticateJWT, paymentRoutes);
 
 // Admin Routes
 router.use("/admin", authenticateJWT, adminRoutes);

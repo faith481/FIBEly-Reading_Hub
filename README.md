@@ -133,6 +133,12 @@ Authorization: Bearer token for user authentication
 Request Body
 Content-Type: application/json
 
+Body:
+```
+{
+  "bookId": "string" // ID of the book to be removed
+}
+```
 
 
 3. Get User Cart

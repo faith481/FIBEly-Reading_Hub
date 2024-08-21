@@ -156,6 +156,34 @@ json
   }
 }
 ```
+Description: The response confirms that all books have been removed from the cart and returns the updated cart object with an empty books array.
+
+Error Responses
+
+Error 404 (Not Found)
+
+Content-Type: application/json
+Body:
+json
+```
+{
+  "message": "Cart not found"
+}
+
+```
+Description: The cart for the specified user does not exist.
+
+Error 500 (Internal Server Error)
+
+Content-Type: application/json
+Body:
+json
+```
+{
+  "error": "Internal Server Error"
+}
+```
+Description: An unexpected error occurred while processing the request.
 
 **Protected Routes**
 1. Dashboard

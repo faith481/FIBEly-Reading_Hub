@@ -197,6 +197,51 @@ Body:
 ```
 Description: An unexpected error occurred while processing the request.
 
+Example Usage
+Request: http
+POST cart/remove HTTP/1.1
+Host: http://0.0.0.0:5000
+Authorization: Bearer <your_jwt_token>
+```
+{
+  "bookId": "60b9b1b2e3b16e50e8f2c3f2"
+}
+```
+Response (Success):
+```
+{
+  "message": "Book removed from cart",
+  "cart": {
+    "_id": "60b9b1b2e3b16e50e8f2c3f1",
+    "user": "60b9a9a6e3b16e50e8f2c3f0",
+    "books": [
+      "60b9b1b2e3b16e50e8f2c3f2",
+      "60b9b1b2e3b16e50e8f2c3f3"
+    ],
+    "createdAt": "2024-08-20T09:28:51.026Z",
+    "__v": 1
+  }
+}
+```
+Response (Error 400):
+```
+{
+  "message": "Book not found in cart"
+}
+```
+Response (Error 404):
+```
+{
+  "message": "Cart not found"
+}
+```
+Response (Error 500):
+```
+{
+  "error": "Internal Server Error"
+}
+```
+
 3. Get User Cart
 Endpoint: GET /cart
 Description: Retrieve the current user's cart.

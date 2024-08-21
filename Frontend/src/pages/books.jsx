@@ -83,3 +83,18 @@ const BookManager = () => {
       setError("Failed to update the book");
     }
   };
+
+  // Delete a book by title
+  const deleteBook = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/books/${title}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setBooks(books.filter((b) => b.title !== title));
+      setError(null);
+    } catch (err) {
+      setError("Failed to delete the book");
+    }
+  };

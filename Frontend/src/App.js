@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Signup from "./pages/loginSignup.jsx";
 import Login from "./pages/login.jsx";

@@ -29,3 +29,17 @@ const BookManager = () => {
       setError("Failed to fetch books");
     }
   };
+ 
+  // Fetch book by title
+  const fetchBookByTitle = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/books/${title}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setBook(response.data);
+    } catch (err) {
+      setError("Failed to fetch the book by title");
+    }
+  };

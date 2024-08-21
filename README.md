@@ -116,16 +116,21 @@ Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with the updated cart.
 Testing: Use raw JSON data in Postman.
 
-2. Get User Cart
+2. Remove Book from Cart
+Endpoint: REMOVE /cart
+Description: Removes a specified book from the user's cart. This endpoint requires authentication and updates the cart by removing the book with the given ID.
+
+
+3. Get User Cart
 Endpoint: GET /cart
 Description: Retrieve the current user's cart.
 Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with the cart details.
 Testing: Send a GET request to /cart.
 
-3. Delete all items in a users Cart
-Description
-Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
+4. Delete all items in a users Cart
+Endpoint: DELETE /cart
+Description: Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
 
     HTTP Method
     POST  

@@ -120,6 +120,20 @@ Testing: Use raw JSON data in Postman.
 Endpoint: REMOVE /cart
 Description: Removes a specified book from the user's cart. This endpoint requires authentication and updates the cart by removing the book with the given ID.
 
+HTTP Method: POST
+
+URL: http://0.0.0.0:5000/cart/remove
+
+Authentication
+Required: JWT (JSON Web Token)
+Method: Bearer Token
+Header: Authorization: Bearer <token>
+Request Headers
+Authorization: Bearer token for user authentication
+Request Body
+Content-Type: application/json
+
+
 
 3. Get User Cart
 Endpoint: GET /cart
@@ -132,10 +146,8 @@ Testing: Send a GET request to /cart.
 Endpoint: DELETE /cart
 Description: Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
 
-    HTTP Method
-    POST  
-    URL
-    http://0.0.0.0:5000/cart/clearCart
+HTTP Method: POST  
+URL: http://0.0.0.0:5000/cart/clearCart
 
 Authentication
 Required: JWT (JSON Web Token)

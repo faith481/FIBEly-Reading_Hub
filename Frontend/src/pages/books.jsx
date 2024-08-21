@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import axios from "axios";
 import "./CSS/books.css";
-import { jwtDecode } from "jwt-decode";
+//import { jwtDecode } from "jwt-decode";
 const ManageBooks = () => {
   const [books, setBooks] = useState([]);
   const [book, setBook] = useState(null);
@@ -44,8 +44,7 @@ const ManageBooks = () => {
 
   const getBookByTitle = useCallback(async () => {
     try {
-      const encoded = title;
-      const res = await axios.get(`http://localhost:5000/books/${encoded}`, {
+      const res = await axios.get(`http://localhost:5000/books/${title}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,12 +58,16 @@ const ManageBooks = () => {
 
   const addBook = useCallback(async () => {
     try {
-      const res = await axios.post("http://localhost:5000/books", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.post(
+        "http://localhost:5000/books/upload",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setBooks([...books, res.data]);
       setError(null);
     } catch (err) {
@@ -93,7 +96,7 @@ const ManageBooks = () => {
 
   const deleteBook = useCallback(async () => {
     try {
-      await axios.delete(`http://localhost:5000/books/${title}`, {
+      await axios.delete(`http://localhost:5000/books/deltitle/${title}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

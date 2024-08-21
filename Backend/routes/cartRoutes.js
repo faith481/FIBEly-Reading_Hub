@@ -35,6 +35,9 @@ cRouter.post("/remove", authenticateJWT, async (req, res) => {
     const { bookId } = req.body;
     const userId = req.user.userId;
 
+    // Convert bookId to ObjectId
+    const bookObjectId = new mongoose.Types.ObjectId(bookId);
+
     // Find the cart for the user
     let cart = await Cart.findOne({ user: userId });
 
@@ -43,15 +46,54 @@ cRouter.post("/remove", authenticateJWT, async (req, res) => {
       return res.status(404).json({ message: "Cart not found" });
     }
 
+    // Log the current state of the cart
+    console.log("Cart Before Removal:", cart.books);
+
     // Remove the book from the cart
-    cart.books = cart.books.filter(id => id.toString() !== bookId);
+    const initialBooksLength = cart.books.length;
+    cart.books = cart.books.filter(id => !id.equals(bookObjectId));
+
+    // Log the updated state of the cart
+    console.log("Cart After Removal:", cart.books);
+
+    // Check if the book was actually removed
+    if (cart.books.length === initialBooksLength) {
+      console.log("No book was removed from the cart.");
+      return res.status(400).json({ message: "Book not found in cart" });
+    }
+
+    // Save the updated cart
+    const updatedCart = await cart.save();
+
+    res.json({ message: "Book removed from cart", cart: updatedCart });
+  } catch (error) {
+    console.error("Error removing book from cart:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+cRouter.post("/clearCart", authenticateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    // Find the cart for the user
+    let cart = await Cart.findOne({ user: userId });
+
+    // If no cart exists, return an error
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    // Clear all books from the cart
+    cart.books = [];
 
     // Save the updated cart
     await cart.save();
 
-    res.json({ message: "Book removed from cart", cart });
+    res.json({ message: "All books removed from cart", cart });
   } catch (error) {
-    console.error("Error removing book from cart:", error);
+    console.error("Error clearing cart:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

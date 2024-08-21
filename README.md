@@ -162,6 +162,41 @@ Body:
 ```
 Description: The book was successfully removed from the cart, and the response includes the updated cart object.
 
+Error Responses
+
+Error 400 (Bad Request)
+
+Content-Type: application/json
+body:
+```
+{
+  "message": "Book not found in cart"
+}
+```
+Description: The specified book ID was not found in the cart, so no book was removed.
+
+Error 404 (Not Found)
+
+Content-Type: application/json
+Body:
+```
+{
+  "message": "Cart not found"
+}
+```
+Description: No cart exists for the specified user.
+
+Error 500 (Internal Server Error)
+
+Content-Type: application/json
+Body:
+```
+{
+  "error": "Internal Server Error"
+}
+```
+Description: An unexpected error occurred while processing the request.
+
 3. Get User Cart
 Endpoint: GET /cart
 Description: Retrieve the current user's cart.

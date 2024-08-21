@@ -66,4 +66,17 @@ bRouter.get('/books/:title', async (req, res) => {
   }
 });
 
+bRouter.delete("/delete/:title", requireRole(async (req, res) => {
+  try {
+    const decoded_title = decodeURIComponent(req.params.title);
+    console.log("Decoded Title:", decoded_title);
+    const deletedBook = await Book.findOneAndDelete({ title: decoded_title });
+    if (!deletedBook)
+      return res.status(404).json({ message: "Book not found" });
+    res.status(200).json({ message: "Book deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting book", error });
+  }
+}));
+
 module.exports = bRouter;

@@ -9,17 +9,22 @@ const authenticateJWT = require("../middleware/middleAuth");
 cRouter.post("/add", authenticateJWT, async (req, res) => {
   try {
     const { bookId } = req.body;
-    //const userId = req.user.userId;
+    // Convert bookId to ObjectId for comparison
+    const bookObjectId = new mongoose.Types.ObjectId(bookId);
 
     // Find the cart for the user
     let cart = await Cart.findOne({ user: req.user.userId });
 
     // If no cart exists, create a new one
     if (!cart) {
-      cart = new Cart({ user: req.user.userId, books: [bookId] });
+      cart = new Cart({ user: req.user.userId, books: [bookObjectId] });
     } else {
-      // Add book to existing cart
-      cart.books.push(bookId);
+      // Check if book already exists in the cart
+      if (!cart.books.some(id => id.equals(bookObjectId))) {
+        cart.books.push(bookObjectId);
+      } else {
+        return res.status(400).json({ message: "Book already in cart" });
+      }
     }
 
     await cart.save();

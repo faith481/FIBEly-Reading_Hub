@@ -127,12 +127,21 @@ Testing: Send a GET request to /cart.
 Description
 Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
 
-HTTP Method
-POST
+    HTTP Method
+    POST  
+    URL
+    http://0.0.0.0:5000/cart/clearCart
 
-URL
-http://0.0.0.0:5000/cart/clearCart
-
+Authentication
+Required: JWT (JSON Web Token)
+Method: Bearer Token
+Header: Authorization: Bearer <token>
+Request Headers
+Authorization: Bearer token for user authentication
+Request Body
+Body: No body content is required for this endpoint.
+Responses
+Success Response (Status: 200 OK)
 
 **Protected Routes**
 1. Dashboard

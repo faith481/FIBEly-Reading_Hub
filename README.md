@@ -123,6 +123,15 @@ Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with the cart details.
 Testing: Send a GET request to /cart.
 
+3. Delete all items in a users Cart
+Description
+Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
+
+HTTP Method
+POST
+
+URL
+http://0.0.0.0:5000/cart/clearCart
 
 **Protected Routes**
 1. Dashboard

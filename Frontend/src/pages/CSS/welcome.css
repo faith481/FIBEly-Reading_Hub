@@ -1,0 +1,35 @@
+.welcome {
+  display: flex;
+  flex-direction: column;
+  background-image: url("https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?fit=crop&w=1600&q=80");
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f7f7f7;
+  padding: 20px;
+}
+
+.welcome h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.welcome p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.welcome-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.welcome-button:hover {
+  background-color: #3e8e41;
+}

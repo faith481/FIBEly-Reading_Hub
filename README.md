@@ -116,13 +116,221 @@ Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with the updated cart.
 Testing: Use raw JSON data in Postman.
 
-2. Get User Cart
+2. Remove Book from Cart
+Endpoint: REMOVE /cart
+Description: Removes a specified book from the user's cart. This endpoint requires authentication and updates the cart by removing the book with the given ID.
+
+HTTP Method: POST
+
+URL: http://0.0.0.0:5000/cart/remove
+
+Authentication
+Required: JWT (JSON Web Token)
+Method: Bearer Token
+Header: Authorization: Bearer <token>
+Request Headers
+Authorization: Bearer token for user authentication
+Request Body
+Content-Type: application/json
+
+Body:
+```
+{
+  "bookId": "string" // ID of the book to be removed
+}
+```
+
+Responses
+Success Response (Status: 200 OK)
+
+Content-Type: application/json
+Body:
+```
+{
+  "message": "Book removed from cart",
+  "cart": {
+    "_id": "60b9b1b2e3b16e50e8f2c3f1",
+    "user": "60b9a9a6e3b16e50e8f2c3f0",
+    "books": [
+      "60b9b1b2e3b16e50e8f2c3f2",
+      "60b9b1b2e3b16e50e8f2c3f3"
+    ],
+    "createdAt": "2024-08-20T09:28:51.026Z",
+    "__v": 1
+  }
+}
+```
+Description: The book was successfully removed from the cart, and the response includes the updated cart object.
+
+Error Responses
+
+Error 400 (Bad Request)
+
+Content-Type: application/json
+body:
+```
+{
+  "message": "Book not found in cart"
+}
+```
+Description: The specified book ID was not found in the cart, so no book was removed.
+
+Error 404 (Not Found)
+
+Content-Type: application/json
+Body:
+```
+{
+  "message": "Cart not found"
+}
+```
+Description: No cart exists for the specified user.
+
+Error 500 (Internal Server Error)
+
+Content-Type: application/json
+Body:
+```
+{
+  "error": "Internal Server Error"
+}
+```
+Description: An unexpected error occurred while processing the request.
+
+Example Usage
+Request: http
+POST cart/remove HTTP/1.1
+Host: http://0.0.0.0:5000
+Authorization: Bearer <your_jwt_token>
+```
+{
+  "bookId": "60b9b1b2e3b16e50e8f2c3f2"
+}
+```
+Response (Success):
+```
+{
+  "message": "Book removed from cart",
+  "cart": {
+    "_id": "60b9b1b2e3b16e50e8f2c3f1",
+    "user": "60b9a9a6e3b16e50e8f2c3f0",
+    "books": [
+      "60b9b1b2e3b16e50e8f2c3f2",
+      "60b9b1b2e3b16e50e8f2c3f3"
+    ],
+    "createdAt": "2024-08-20T09:28:51.026Z",
+    "__v": 1
+  }
+}
+```
+Response (Error 400):
+```
+{
+  "message": "Book not found in cart"
+}
+```
+Response (Error 404):
+```
+{
+  "message": "Cart not found"
+}
+```
+Response (Error 500):
+```
+{
+  "error": "Internal Server Error"
+}
+```
+
+3. Get User Cart
 Endpoint: GET /cart
 Description: Retrieve the current user's cart.
 Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with the cart details.
 Testing: Send a GET request to /cart.
 
+4. Delete all items in a users Cart
+Endpoint: DELETE /cart
+Description: Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
+
+HTTP Method: POST  
+URL: http://0.0.0.0:5000/cart/clearCart
+
+Authentication
+Required: JWT (JSON Web Token)
+Method: Bearer Token
+Header: Authorization: Bearer <token>
+Request Headers
+Authorization: Bearer token for user authentication
+Request Body
+Body: No body content is required for this endpoint.
+Responses
+Success Response (Status: 200 OK)
+Body:
+json
+```
+{
+  "message": "All books removed from cart",
+  "cart": {
+    "_id": "60b9b1b2e3b16e50e8f2c3f1",
+    "user": "60b9a9a6e3b16e50e8f2c3f0",
+    "books": [],
+    "createdAt": "2024-08-20T09:28:51.026Z",
+    "__v": 1
+  }
+}
+```
+Description: The response confirms that all books have been removed from the cart and returns the updated cart object with an empty books array.
+
+Error Responses
+
+Error 404 (Not Found)
+
+Content-Type: application/json
+Body:
+json
+```
+{
+  "message": "Cart not found"
+}
+```
+Description: The cart for the specified user does not exist.
+
+Error 500 (Internal Server Error)
+
+Content-Type: application/json
+Body:
+json
+```
+{
+  "error": "Internal Server Error"
+}
+```
+Description: An unexpected error occurred while processing the request.
+
+Example Usage
+Request:
+
+http
+POST cart/clearCart
+Host: http://0.0.0.0:5000
+Authorization: Bearer (your JWT)
+Content-Type: application/json
+Response:
+
+json
+```
+{
+  "message": "All books removed from cart",
+  "cart": {
+    "_id": "60b9b1b2e3b16e50e8f2c3f1",
+    "user": "60b9a9a6e3b16e50e8f2c3f0",
+    "books": [],
+    "createdAt": "2024-08-20T09:28:51.026Z",
+    "__v": 1
+  }
+}
+```
 
 **Protected Routes**
 1. Dashboard

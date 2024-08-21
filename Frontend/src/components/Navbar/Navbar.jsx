@@ -14,12 +14,13 @@ const Navbar = () => {
         <p>FIBEly HUB</p>
       </div>
       <ul className="nav-menu">
-        <li onClick={() => setMenu("shop")}>
-          <Link style={{ textDecoration: "none" }} to="/">
-            Shop
-          </Link>
-          {menu === "shop" ? <hr /> : null}
-        </li>
+        {/* <li onClick={() => setMenu("shop")}> */}
+        {/* <Link style={{ textDecoration: "none" }} to="/"> */}
+        {/* Home */}
+        {/* </Link> */}
+        {/* {menu === "shop" ? <hr /> : null} */}
+        {/* </li> */}
+
         <li onClick={() => setMenu("fictions")}>
           <Link style={{ textDecoration: "none" }} to="/fiction">
             Fiction
@@ -43,8 +44,8 @@ const Navbar = () => {
         <Link to="/login">
           <button>Login</button>
         </Link>
-        <Link to="/signup">
-          <button>signup</button>
+        <Link to="/logout">
+          <button>Logout</button>
         </Link>
         <Link to="/cart">
           <img src={cart_icon} alt="Cart" />

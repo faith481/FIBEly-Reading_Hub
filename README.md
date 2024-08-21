@@ -140,6 +140,27 @@ Body:
 }
 ```
 
+Responses
+Success Response (Status: 200 OK)
+
+Content-Type: application/json
+Body:
+```
+{
+  "message": "Book removed from cart",
+  "cart": {
+    "_id": "60b9b1b2e3b16e50e8f2c3f1",
+    "user": "60b9a9a6e3b16e50e8f2c3f0",
+    "books": [
+      "60b9b1b2e3b16e50e8f2c3f2",
+      "60b9b1b2e3b16e50e8f2c3f3"
+    ],
+    "createdAt": "2024-08-20T09:28:51.026Z",
+    "__v": 1
+  }
+}
+```
+Description: The book was successfully removed from the cart, and the response includes the updated cart object.
 
 3. Get User Cart
 Endpoint: GET /cart

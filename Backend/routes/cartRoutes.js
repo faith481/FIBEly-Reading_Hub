@@ -47,14 +47,14 @@ cRouter.post("/remove", authenticateJWT, async (req, res) => {
     }
 
     // Log the current state of the cart
-    console.log("Cart Before Removal:", cart.books);
+    //console.log("Cart Before Removal:", cart.books);
 
     // Remove the book from the cart
     const initialBooksLength = cart.books.length;
     cart.books = cart.books.filter(id => !id.equals(bookObjectId));
 
     // Log the updated state of the cart
-    console.log("Cart After Removal:", cart.books);
+    //console.log("Cart After Removal:", cart.books);
 
     // Check if the book was actually removed
     if (cart.books.length === initialBooksLength) {

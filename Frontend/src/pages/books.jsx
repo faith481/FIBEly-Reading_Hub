@@ -43,3 +43,23 @@ const BookManager = () => {
       setError("Failed to fetch the book by title");
     }
   };
+
+  // Add a new book
+  const addBook = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/books",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setBooks([...books, response.data]);
+      setError(null);
+    } catch (err) {
+      setError("Failed to add the book");
+    }
+  };

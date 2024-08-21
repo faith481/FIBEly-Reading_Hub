@@ -1,0 +1,20 @@
+const express = require('express');
+const orderRouter = express.Router();
+const authenticateJWT = require('../middleware/middleAuth');
+const OrderService = require('../models/Payment/orderControll');
+
+orderRouter.post('/orders', authenticateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    // Create a new order
+    const order = await OrderService.createOrder(userId);
+
+    res.status(201).json({ message: 'Order created successfully', order });
+  } catch (error) {
+    console.error('Error creating order:', error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
+  }
+});
+
+module.exports = orderRouter;

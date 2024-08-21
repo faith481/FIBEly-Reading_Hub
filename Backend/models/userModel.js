@@ -13,7 +13,7 @@ const publisherSchema = new Schema({
 
 // Define sub-schema for the Normal Reader role
 const readerSchema = new Schema({
-  booksRead: [
+  booksPurcased: [
     {
       type: Schema.Types.ObjectId,
       ref: "Book",

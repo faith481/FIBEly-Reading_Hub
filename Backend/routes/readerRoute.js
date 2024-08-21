@@ -2,16 +2,19 @@ const express = require("express");
 const rRouter = express.Router();
 const Book = require("../models/booksModel");
 const requireRole = require("../middleware/middleRole");
+//const User = require("../models/userModel");
 
 // Add a book to the user's cart
 rRouter.post("/cart", async (req, res) => {
   try {
     const { bookId } = req.body;
     const user = await User.findById(req.user._id);
+    //console.log(`UserId ${user}`);
     user.cart.push(bookId);
     await user.save();
     res.status(200).json({ message: "Book added to cart", cart: user.cart });
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: "Error adding book to cart", error });
   }
 });

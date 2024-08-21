@@ -169,7 +169,6 @@ json
 {
   "message": "Cart not found"
 }
-
 ```
 Description: The cart for the specified user does not exist.
 
@@ -184,6 +183,30 @@ json
 }
 ```
 Description: An unexpected error occurred while processing the request.
+
+Example Usage
+Request:
+
+http
+POST cart/clearCart
+Host: http://0.0.0.0:5000
+Authorization: Bearer (your JWT)
+Content-Type: application/json
+Response:
+
+json
+```
+{
+  "message": "All books removed from cart",
+  "cart": {
+    "_id": "60b9b1b2e3b16e50e8f2c3f1",
+    "user": "60b9a9a6e3b16e50e8f2c3f0",
+    "books": [],
+    "createdAt": "2024-08-20T09:28:51.026Z",
+    "__v": 1
+  }
+}
+```
 
 **Protected Routes**
 1. Dashboard

@@ -63,3 +63,23 @@ const BookManager = () => {
       setError("Failed to add the book");
     }
   };
+
+  / Update a book by title
+  const updateBook = async () => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/books/${title}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setBook(response.data);
+      setError(null);
+    } catch (err) {
+      setError("Failed to update the book");
+    }
+  };

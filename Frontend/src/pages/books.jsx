@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
-
+import "./CSS/books.css";
+import { jwtDecode } from "jwt-decode";
 const ManageBooks = () => {
   const [books, setBooks] = useState([]);
   const [book, setBook] = useState(null);
@@ -13,61 +14,67 @@ const ManageBooks = () => {
   });
   const [title, setTitle] = useState("");
   const [error, setError] = useState(null);
-
+  const [SearchBook, setSearchBook] = useState(null);
   const token = localStorage.getItem("token");
+  // const decodedToken = jwtDecode(token);
 
-  // Fetch all books
-  const getAllBooks = async () => {
+  //const checkTokenExpiration = () => {
+  //  if (
+  //    !decodedToken ||
+  //    !decodedToken.exp ||
+  //    decodedToken.exp * 1000 < Date.now()
+  //  ) {
+  //   setError("Invalid token or token has: expired");
+  // }
+  //};
+
+  const getAllBooks = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:5000/books", {
+      const res = await axios.get("http://localhost:5000/protected/getBooks", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setBooks(response.data);
+      setBooks(res.data);
+      setError(null);
     } catch (err) {
       setError("Failed to fetch books");
     }
-  };
- 
-  // Fetch book by title
-  const fetchBookByTitle = async () => {
+  }, [token]);
+
+  const getBookByTitle = useCallback(async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/books/${title}`, {
+      const encoded = title;
+      const res = await axios.get(`http://localhost:5000/books/${encoded}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setBook(response.data);
+      setSearchBook(res.data);
+      setError(null);
     } catch (err) {
       setError("Failed to fetch the book by title");
     }
-  };
+  }, [token, title]);
 
-  // Add a new book
-  const addBook = async () => {
+  const addBook = useCallback(async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/books",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setBooks([...books, response.data]);
+      const res = await axios.post("http://localhost:5000/books", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setBooks([...books, res.data]);
       setError(null);
     } catch (err) {
       setError("Failed to add the book");
     }
-  };
+  }, [token, formData, books]);
 
-  / Update a book by title
-  const updateBook = async () => {
+  const updateBook = useCallback(async () => {
     try {
-      const response = await axios.patch(
+      const res = await axios.patch(
         `http://localhost:5000/books/${title}`,
         formData,
         {
@@ -77,15 +84,14 @@ const ManageBooks = () => {
           },
         }
       );
-      setBook(response.data);
+      setFormData(res.data);
       setError(null);
     } catch (err) {
       setError("Failed to update the book");
     }
-  };
+  }, [token, title, formData]);
 
-  // Delete a book by title
-  const deleteBook = async () => {
+  const deleteBook = useCallback(async () => {
     try {
       await axios.delete(`http://localhost:5000/books/${title}`, {
         headers: {
@@ -97,7 +103,7 @@ const ManageBooks = () => {
     } catch (err) {
       setError("Failed to delete the book");
     }
-  };
+  }, [token, title, books]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -156,13 +162,20 @@ const ManageBooks = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <button onClick={fetchBookByTitle}>Fetch Book</button>
+        <button onClick={getBookByTitle}>Fetch Book</button>
         <button onClick={deleteBook}>Delete Book</button>
+        {SearchBook && (
+          <div>
+            <h3>{SearchBook.title}</h3>
+            <p>{SearchBook.author}</p>
+            <p>{SearchBook.genre}</p>
+          </div>
+        )}
       </div>
 
       <div className="all-books">
         <h2>All Books</h2>
-        <button onClick={fetchAllBooks}>Fetch All Books</button>
+        <button onClick={getAllBooks}>Fetch All Books</button>
         {books.map((book, index) => (
           <div key={index}>
             <h3>{book.title}</h3>

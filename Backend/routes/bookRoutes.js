@@ -51,4 +51,19 @@ bRouter.delete("/delete/:id", requireRole("publisher"), async (req, res) => {
   }
 });
 
+// function to get books by title
+bRouter.get('/books/:title', async (req, res) => {
+  try {
+    const book_title = req.params.title;
+    const book = await Book.findOne({ book_title });
+    if (!book) {
+      return res.status(404).json({ error: 'Book not found' });
+    }
+    res.json(book);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch book by title' });
+  }
+});
+
 module.exports = bRouter;

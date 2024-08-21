@@ -29,7 +29,7 @@ const Signup = () => {
         }
       );
       console.log(res);
-      navigate("/login");
+      navigate(`/welcome/${username}`);
     } catch (error) {
       setError(error.message);
     }

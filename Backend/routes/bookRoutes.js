@@ -10,6 +10,7 @@ bRouter.post("/upload", requireRole("publisher"), async (req, res) => {
     const newBook = new Book({
       title,
       author,
+      price,
       genre,
       publicationDate,
       publisher,

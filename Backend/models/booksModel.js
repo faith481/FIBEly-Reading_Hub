@@ -9,6 +9,11 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    price: {
+        type: Number,
+        required: true,
+        min: [0, 'Price must be a positive number']
+    },
     genre: {
         type: String,
         required: true,
@@ -19,7 +24,7 @@ const bookSchema = new mongoose.Schema({
     },
     publisher: {
         type: String,
-        required: false, // Optional field
+        required: false,
     },
     createdAt: {
         type: Date,

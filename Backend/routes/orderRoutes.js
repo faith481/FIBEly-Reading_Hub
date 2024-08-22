@@ -3,7 +3,7 @@ const orderRouter = express.Router();
 const authenticateJWT = require('../middleware/middleAuth');
 const OrderService = require('../models/Payment/orderControll');
 
-orderRouter.post('/orders', authenticateJWT, async (req, res) => {
+orderRouter.post('/createOrder', async (req, res) => {
   try {
     const userId = req.user.userId;
 

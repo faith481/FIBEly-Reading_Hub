@@ -43,6 +43,24 @@ class OrderService {
     }
     return totalPrice;
   }
+
+  async getOrderDetails(orderId) {
+    try {
+      // Find the order by ID and populate if needed
+      const order = await Order.findById(orderId).populate('cartId');
+
+      // If no order found, throw an error
+      if (!order) {
+        throw new Error('Order not found');
+      }
+
+      // Return the order details
+      return order;
+    } catch (error) {
+      console.error('Error retrieving order details:', error);
+      throw new Error('Internal Server Error');
+    }
+  }
 }
 
 module.exports = OrderService;

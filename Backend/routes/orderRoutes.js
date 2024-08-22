@@ -17,7 +17,7 @@ orderRouter.post('/createOrder', async (req, res) => {
   }
 });
 
-orderRouter.get('/order/:id', async (req, res) => {
+orderRouter.get('/orderDetails/:id', async (req, res) => {
     try {
       const orderId = req.params.id;
   
@@ -28,6 +28,25 @@ orderRouter.get('/order/:id', async (req, res) => {
     } catch (error) {
       console.error('Error fetching order:', error);
       res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    }
+  });
+
+  orderRouter.patch('/updateOrderStatus/:orderId', async (req, res) => {
+    try {
+      const { orderId } = req.params;
+      const { status } = req.body;
+
+      if (!status || !orderId) {
+        return res.status(400).json({ message: 'Invalid status value, or orderId' });
+      }
+  
+      // Use the OrderService to update the status
+      const order = await OrderService.updateOrderStatus(orderId, status);
+  
+      // Return the updated order
+      res.status(200).json({ message: 'Order status updated successfully', order });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
   });
 

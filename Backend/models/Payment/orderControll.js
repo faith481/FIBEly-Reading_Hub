@@ -44,7 +44,7 @@ class OrderService {
     return totalPrice;
   }
 
-  async getOrderDetails(orderId) {
+  static async getOrderDetails(orderId) {
     try {
       // Find the order by ID and populate if needed
       const order = await Order.findById(orderId).populate('cartId');

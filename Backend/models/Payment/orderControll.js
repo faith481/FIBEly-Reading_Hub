@@ -31,7 +31,7 @@ class OrderService {
 
     // Clear the cart after creating the order
     //cart.books = [];
-    await cart.save();
+    //await cart.save();
 
     return order;
   }
@@ -46,21 +46,27 @@ class OrderService {
 
   static async getOrderDetails(orderId) {
     try {
-      // Find the order by ID and populate if needed
-      const order = await Order.findById(orderId).populate('cartId');
-
+      // Find the order by ID and populate necessary fields
+      const order = await Order.findById(orderId)
+        .populate({
+          path: 'cartId',
+          select: '-books'
+        })
+        .populate('books', 'title price')
+        .exec();
+  
       // If no order found, throw an error
       if (!order) {
         throw new Error('Order not found');
       }
-
+  
       // Return the order details
       return order;
     } catch (error) {
       console.error('Error retrieving order details:', error);
       throw new Error('Internal Server Error');
     }
-  }
+  }  
 }
 
 module.exports = OrderService;

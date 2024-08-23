@@ -1,0 +1,25 @@
+.latest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 100px;
+}
+.latest h1 {
+  color: black;
+  font-size: 50px;
+  font-weight: 600;
+}
+.latest hr {
+  width: 200px;
+  height: 6px;
+  border-radius: 10px;
+  background: black;
+}
+.latest-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 50px;
+  gap: 10px;
+  width: 90%;
+}

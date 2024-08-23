@@ -35,7 +35,9 @@ const bookSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
+{
+  timestamps: true;
+}
 bookSchema.pre("save", function (next) {
   this.updatedAt = Date.now();
   next();

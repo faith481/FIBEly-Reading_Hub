@@ -9,6 +9,7 @@ const readerRoutes = require("./readerRoute");
 const cartRoutes = require("./cartRoutes");
 const paymentRoutes = require("./payment_route");
 const frontBooks = require("./frontBooks");
+const latestRoute = require("./latestRoute");
 // User Authentication Routes
 router.use("/auth", authRoutes);
 
@@ -25,6 +26,8 @@ router.use("/payment", authenticateJWT, paymentRoutes);
 // Admin Routes
 router.use("/admin", authenticateJWT, adminRoutes);
 
+//routes for latest books
+
 // route for normal users
 router.use("/", readerRoutes);
 
@@ -33,5 +36,8 @@ router.use("/cart", cartRoutes);
 
 //to fetch images for the fronted
 router.use("/front", frontBooks);
+
+//route for the latest books
+router.use("/new", latestRoute);
 
 module.exports = router;

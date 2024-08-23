@@ -409,8 +409,53 @@ Response Body:
 }
 ```
 Error Handling
-404 Not Found: If the order with the specified ID does not exist, the endpoint will return a 404 Not Found response with a message indicating that the order was not found.
+404 Not Found:
+ If the order with the specified ID does not exist, the endpoint will return a 404 Not Found response with a message indicating that the order was not found.
 500 Internal Server Error: If an unexpected error occurs while processing the request, the endpoint will return a 500 Internal Server Error response with a general error message.
+
+2. POST cart/createOrder
+Description:
+Creates a new order for the currently authenticated user.
+URL: http://localhost:5000/cart/createOrder
+Method: POST
+
+Request Headers
+Content-Type: application/json
+Authorization: Bearer <your_token_here>
+Request Body:
+This endpoint does not require a request body; the order is created based on the authenticated user.
+
+Example Request
+POST cart/createOrder HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+Authorization: Bearer <your_token_here>
+Response
+Success Response
+Status Code: 201 Created
+Content-Type: application/json
+Response Body:
+```
+{
+  "message": "Order created successfully",
+  "order": {
+    "userId": "66c170abc0fba5728fdf92b1",
+    "cartId": "66c461d358b2751592e0e56c",
+    "_id": "66c70d77bbb8d9ea428597b4",
+    "books": [
+      {
+        "_id": "60c72b2f5f1b2c001c8f3e01",
+        "title": "Example Book",
+        "price": 29.99
+      }
+    ],
+    "totalPrice": 29.99,
+    "status": "pending",
+    "createdAt": "2024-08-22T10:05:43.082Z",
+    "__v": 0
+  }
+}
+```
 
 **Protected Routes**
 1. Dashboard

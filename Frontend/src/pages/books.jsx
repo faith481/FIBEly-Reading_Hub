@@ -11,6 +11,7 @@ const ManageBooks = () => {
     genre: "",
     publicationDate: "",
     publisher: "",
+    image: null,
   });
   const [title, setTitle] = useState("");
   const [error, setError] = useState(null);
@@ -58,19 +59,31 @@ const ManageBooks = () => {
 
   const addBook = useCallback(async () => {
     try {
+      const uploadImage = new FormData();
+      uploadImage.append("title", formData.title);
+      uploadImage.append("author", formData.author);
+      uploadImage.append("genre", formData.genre);
+      uploadImage.append("publicationDate", formData.publicationDate);
+      uploadImage.append("publisher", formData.publisher);
+      uploadImage.append("image", formData.image); // {
+      // uri: formData.image && formData.image.uri,
+      // filename: formData.image && formData.image.name,
+      // type: formData.image && formData.image.type,
+      //});
       const res = await axios.post(
         "http://localhost:5000/books/upload",
-        formData,
+        uploadImage,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
       setBooks([...books, res.data]);
       setError(null);
     } catch (err) {
+      console.error(err);
       setError("Failed to add the book");
     }
   }, [token, formData, books]);
@@ -110,6 +123,9 @@ const ManageBooks = () => {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleImageChange = (e) => {
+    setFormData({ ...formData, image: e.target.files[0] });
   };
 
   return (
@@ -153,6 +169,7 @@ const ManageBooks = () => {
           value={formData.publisher}
           onChange={handleInputChange}
         />
+        <input type="file" name="image" onChange={handleImageChange} />
         <button onClick={addBook}>Add Book</button>
         <button onClick={updateBook}>Update Book</button>
       </div>

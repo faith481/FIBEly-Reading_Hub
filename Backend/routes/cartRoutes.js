@@ -1,8 +1,8 @@
 const express = require("express");
-const User = require("../models/userModel");
+const Book = require("../models/booksModel");
 const cRouter = express.Router();
 const Cart = require("../models/cartModel");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const authenticateJWT = require("../middleware/middleAuth");
 
 // Add book to cart
@@ -12,16 +12,41 @@ cRouter.post("/add", authenticateJWT, async (req, res) => {
     // Convert bookId to ObjectId for comparison
     const bookObjectId = new mongoose.Types.ObjectId(bookId);
 
+    const book = await Book.findOne({ _id: bookObjectId });
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
     // Find the cart for the user
     let cart = await Cart.findOne({ user: req.user.userId });
 
     // If no cart exists, create a new one
     if (!cart) {
-      cart = new Cart({ user: req.user.userId, books: [bookObjectId] });
+      cart = new Cart({
+        user: req.user.userId,
+        books: [
+          {
+            _id: book._id,
+            title: book.title,
+            author: book.author,
+            genre: book.genre,
+            publicationDate: book.publicationDate,
+            image: book.image,
+          },
+        ],
+      });
     } else {
       // Check if book already exists in the cart
-      if (!cart.books.some(id => id.equals(bookObjectId))) {
-        cart.books.push(bookObjectId);
+      if (!cart.books.some((book) => book._id.equals(bookObjectId))) {
+        cart.books.push({
+          _id: book._id,
+          title: book.title,
+          author: book.author,
+          genre: book.genre,
+          publicationDate: book.publicationDate,
+          image: book.image,
+        });
       } else {
         return res.status(400).json({ message: "Book already in cart" });
       }
@@ -56,7 +81,7 @@ cRouter.post("/remove", authenticateJWT, async (req, res) => {
 
     // Remove the book from the cart
     const initialBooksLength = cart.books.length;
-    cart.books = cart.books.filter(id => !id.equals(bookObjectId));
+    cart.books = cart.books.filter((id) => !id.equals(bookObjectId));
 
     // Log the updated state of the cart
     //console.log("Cart After Removal:", cart.books);
@@ -76,7 +101,6 @@ cRouter.post("/remove", authenticateJWT, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 cRouter.post("/clearCart", authenticateJWT, async (req, res) => {
   try {
@@ -103,4 +127,22 @@ cRouter.post("/clearCart", authenticateJWT, async (req, res) => {
   }
 });
 
+cRouter.get("/getCart", authenticateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    // Find the cart for the user
+    let cart = await Cart.findOne({ user: userId });
+
+    // If no cart exists, return an empty cart
+    if (!cart) {
+      cart = { books: [] };
+    }
+
+    res.json({ message: "Cart retrieved", cart });
+  } catch (error) {
+    console.error("Error retrieving cart:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 module.exports = cRouter;

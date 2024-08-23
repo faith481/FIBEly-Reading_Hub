@@ -352,6 +352,66 @@ Request Headers
 Authorization: Bearer token for user authentication
 Request Body: No body content is required for this endpoint.
 
+Example Request
+
+GET cart/order/60c72b2f5f1b2c001c8f3e09 HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+Authorization: Bearer <your_token_here>
+Response
+Success Response
+Status Code: 200 OK
+Content-Type: application/json
+Response Body:
+```
+{
+  "order": {
+    "userId": "66c170abc0fba5728fdf92b1",
+    "cartId": "66c461d358b2751592e0e56c",
+    "_id": "66c70d77bbb8d9ea428597b4",
+    "books": [
+      {
+        "_id": "60c72b2f5f1b2c001c8f3e01",
+        "title": "Example Book",
+        "price": 29.99
+      }
+    ],
+    "totalPrice": 29.99,
+    "status": "pending",
+    "createdAt": "2024-08-22T10:05:43.082Z",
+    "__v": 0
+  }
+}
+```
+
+Error Responses
+Order Not Found
+
+Status Code: 404 Not Found
+Content-Type: application/json
+Response Body:
+```
+{
+  "message": "Order not found",
+  "error": "Order not found"
+}
+```
+Internal Server Error
+
+Status Code: 500 Internal Server Error
+Content-Type: application/json
+
+Response Body:
+```
+{
+  "message": "Internal Server Error",
+  "error": "<error_message>"
+}
+```
+Error Handling
+404 Not Found: If the order with the specified ID does not exist, the endpoint will return a 404 Not Found response with a message indicating that the order was not found.
+500 Internal Server Error: If an unexpected error occurs while processing the request, the endpoint will return a 500 Internal Server Error response with a general error message.
+
 **Protected Routes**
 1. Dashboard
 Endpoint: GET /protected/dashboard

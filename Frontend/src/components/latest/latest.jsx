@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Items from "../items/Items";
 import "./latest.css";
+import { Link } from "react-router-dom";
 const Latest = () => {
   const [latestBooks, setLatestBooks] = useState([]);
   const token = localStorage.getItem("token");
@@ -33,14 +34,17 @@ const Latest = () => {
       <div className="latest-items">
         {latestBooks.map((book, i) => (
           <div className="latest-item" key={i}>
-            <Items
-              id={book.id}
-              title={book.title}
-              image={`data:image/jpg/jpeg/png;base64,${book.image}`}
-              author={book.author}
-              new_price={book.new_price}
-              old_price={book.old_price}
-            />
+            <Link to={`/describe/${book._id}`} state={{ book: book }}>
+              <Items
+                book={book}
+                id={book._id}
+                title={book.title}
+                image={`http://localhost:5000/${book.image}`}
+                author={book.author}
+                new_price={book.newPrice}
+                old_price={book.oldPrice}
+              />
+            </Link>
           </div>
         ))}
       </div>

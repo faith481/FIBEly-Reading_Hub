@@ -10,14 +10,23 @@ const fs = require("fs");
 // Upload a new book
 bRouter.post(
   "/upload",
-  requireRole("publisher"),
-  upload.single("image"),
+  upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "pdfFile", maxCount: 1 },
+  ]),
   async (req, res) => {
     try {
-      const { title, author, genre, publicationDate, publisher } = req.body;
-      const image = req.file;
-      const imageData = fs.readFileSync(image.path);
-      const base64Image = imageData.toString("base64"); // convert the image fromat into base64 to retrievei it to the front end
+      const {
+        title,
+        author,
+        genre,
+        publicationDate,
+        publisher,
+        newPrice,
+        oldPrice,
+      } = req.body;
+      const imageF = req.files.image[0];
+      const pdfFileF = req.files.pdfFile[0];
 
       const newBook = new Book({
         title,
@@ -25,7 +34,11 @@ bRouter.post(
         genre,
         publicationDate,
         publisher,
-        image: base64Image,
+        image: imageF.path, // Store relative path to the image
+        pdfFile: pdfFileF.path, // Store relative path to the PDF file
+        pdfFileName: pdfFileF.originalname, // Store the original file name
+        newPrice: parseFloat(newPrice), // Store new price as a number
+        oldPrice: parseFloat(oldPrice), // Store old price as a number
       });
 
       await newBook.save();
@@ -33,12 +46,11 @@ bRouter.post(
         .status(201)
         .json({ message: "Book uploaded successfully", book: newBook });
     } catch (error) {
-      console.error(error);
+      console.error("Error uploading book:", error);
       res.status(500).json({ message: "Error uploading book", error });
     }
   }
 );
-
 // Update a book
 bRouter.put("/update/:id", requireRole("publisher"), async (req, res) => {
   try {
@@ -101,5 +113,10 @@ bRouter.delete(
     }
   }
 );
+
+bRouter.get("/files/:filename", (req, res) => {
+  const filePath = path.join(__dirname, "uploads", req.params.filename);
+  res.sendFile(filePath);
+});
 
 module.exports = bRouter;

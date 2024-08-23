@@ -9,7 +9,7 @@ const route = require("./routes/route");
 //const user = require("./models/userModel");
 const cors = require("cors");
 const upload = require("./middleware/multer");
-
+const path = require("path");
 const app = express();
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
@@ -26,6 +26,7 @@ app.use(
 );
 
 app.use("/", route);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 //app.use(route);
 

@@ -331,6 +331,26 @@ json
   }
 }
 ```
+**Order Management Routes**
+1. GET cart/order/:id
+Description:
+Fetches the details of a specific order based on the provided order ID.
+URL: http://localhost:5000/cart/order/:id
+Method: GET
+
+URL Parameters
+id (path parameter): The unique identifier of the order you want to retrieve.
+Type: String
+Format: A valid MongoDB ObjectId (e.g., 60c72b2f5f1b2c001c8f3e09)
+Request Headers
+
+Authentication
+Required: JWT (JSON Web Token)
+Method: Bearer Token
+Header: Authorization: Bearer <token>
+Request Headers
+Authorization: Bearer token for user authentication
+Request Body: No body content is required for this endpoint.
 
 **Protected Routes**
 1. Dashboard

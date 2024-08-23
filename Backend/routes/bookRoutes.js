@@ -8,6 +8,7 @@ const fs = require("fs");
 //const upload = multer({ dest: "./uploads/" });
 
 // Upload a new book
+<<<<<<< HEAD
 bRouter.post(
   "/upload",
   requireRole("publisher"),
@@ -36,6 +37,25 @@ bRouter.post(
       console.error(error);
       res.status(500).json({ message: "Error uploading book", error });
     }
+=======
+bRouter.post("/upload", requireRole("publisher"), async (req, res) => {
+  try {
+    const { title, author, genre, publicationDate, publisher } = req.body;
+    const newBook = new Book({
+      title,
+      author,
+      price,
+      genre,
+      publicationDate,
+      publisher,
+    });
+    await newBook.save();
+    res
+      .status(201)
+      .json({ message: "Book uploaded successfully", book: newBook });
+  } catch (error) {
+    res.status(500).json({ message: "Error uploading book", error });
+>>>>>>> master
   }
 );
 

@@ -455,7 +455,28 @@ Response Body:
     "__v": 0
   }
 }
+
+
+Error Responses
+
+Internal Server Error
+Status Code: 500 Internal Server Error
+Content-Type: application/json
+Response Body:
 ```
+{
+  "message": "Internal Server Error",
+  "error": "<error_message>"
+}
+```
+
+Error Handling
+500 Internal Server Error: If an unexpected error occurs while creating the order, the endpoint will return a 500 Internal Server Error response with a general error message.
+
+Notes
+Authentication: Ensure the request includes a valid authentication token in the Authorization header. The endpoint relies on req.user.userId to identify the user, which assumes that the user is authenticated and their ID is available in the request object.
+Order Creation: The order is created based on the current user's cart. If the cart is empty or not found, an error will be thrown by the OrderService.createOrder method.
+
 
 **Protected Routes**
 1. Dashboard

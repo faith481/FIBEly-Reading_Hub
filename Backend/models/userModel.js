@@ -25,7 +25,6 @@ const readerSchema = new Schema({
       ref: "Book",
     },
   ],
-  // Add other fields specific to readers if needed
 });
 
 // Define the main User schema

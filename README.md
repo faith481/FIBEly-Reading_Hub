@@ -580,6 +580,37 @@ Response Body Example:
 }
 ```
 
+400 Bad Request:
+
+Description: The request was invalid due to missing or incorrect status or orderId.
+
+Response Body Example:
+```
+{
+  "message": "Invalid status value, or orderId"
+}
+```
+404 Not Found:
+
+Description: The order with the given orderId was not found.
+
+Response Body Example:
+```
+{
+  "message": "Order not found"
+}
+```
+500 Internal Server Error:
+
+Description: An error occurred on the server while updating the order status.
+
+Response Body Example:
+```
+{
+  "message": "Internal Server Error"
+}
+```
+
 **Protected Routes**
 1. Dashboard
 Endpoint: GET /protected/dashboard

@@ -50,4 +50,19 @@ orderRouter.get('/orderDetails/:id', async (req, res) => {
     }
   });
 
+  // route to cancel order
+  orderRouter.delete('/CancelOrder/:orderId', async (req, res) => {
+    try {
+      const { orderId } = req.params;
+  
+      // Use the OrderService to cancel the order
+      const result = await OrderService.cancelOrder(orderId);
+  
+      // Return a confirmation message
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
 module.exports = orderRouter;

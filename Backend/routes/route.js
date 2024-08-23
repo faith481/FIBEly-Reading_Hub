@@ -4,7 +4,7 @@ const authenticateJWT = require("../middleware/middleAuth");
 const authRoutes = require("./authRoute");
 const protectedRoutes = require("./protectedRoute");
 const adminRoutes = require("./adminRoute");
-const bookRoutes = require("./bookRoutes");
+const booksRoutes = require("./booksRoutes");
 const readerRoutes = require("./readerRoute");
 const cartRoutes = require("./cartRoutes");
 const paymentRoutes = require("./payment_route");
@@ -17,7 +17,7 @@ router.use("/protected", protectedRoutes);
 //router.use("/auth", authRoutes);
 
 // Book Routes (accessible by publishers and readers)
-router.use("/books", authenticateJWT, bookRoutes);
+router.use("/books", authenticateJWT, booksRoutes);
 
 // Pament Routes
 router.use("/payment", authenticateJWT, paymentRoutes);

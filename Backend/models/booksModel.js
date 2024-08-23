@@ -26,6 +26,25 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  newPrice: {
+    type: String,
+    required: true,
+  },
+  oldPrice: {
+    type: String,
+    required: true, //  not optional field
+  },
+
+  pdfFile: {
+    type: Buffer, // pdf file as a Buffer
+    required: true,
+  },
+  pdfFileName: {
+    type: String, // the original file name of the pdf
+    required: true,
+  },
+
   createdAt: {
     type: Date,
     default: Date.now,

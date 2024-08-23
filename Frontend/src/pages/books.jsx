@@ -11,7 +11,10 @@ const ManageBooks = () => {
     genre: "",
     publicationDate: "",
     publisher: "",
+    newPrice: "",
+    oldPrice: "",
     image: null,
+    pdfFile: null,
   });
   const [title, setTitle] = useState("");
   const [error, setError] = useState(null);
@@ -65,7 +68,12 @@ const ManageBooks = () => {
       uploadImage.append("genre", formData.genre);
       uploadImage.append("publicationDate", formData.publicationDate);
       uploadImage.append("publisher", formData.publisher);
-      uploadImage.append("image", formData.image); // {
+      uploadImage.append("newPrice", formData.newPrice);
+      uploadImage.append("oldPrice", formData.oldPrice);
+      uploadImage.append("image", formData.image); // file input
+      uploadImage.append("pdfFile", formData.pdfFile);
+
+      // {
       // uri: formData.image && formData.image.uri,
       // filename: formData.image && formData.image.name,
       // type: formData.image && formData.image.type,
@@ -122,10 +130,23 @@ const ManageBooks = () => {
   }, [token, title, books]);
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "newPrice" || e.target.name === "oldPrice") {
+      const newValue = parseFloat(e.target.value);
+      if (isNaN(newValue) || newValue < 0) {
+        setError("Invalid price value");
+      } else {
+        setFormData({ ...formData, [e.target.name]: newValue });
+      }
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
   const handleImageChange = (e) => {
     setFormData({ ...formData, image: e.target.files[0] });
+  };
+
+  const handlePdfChange = (e) => {
+    setFormData({ ...formData, pdfFile: e.target.files[0] });
   };
 
   return (
@@ -169,7 +190,22 @@ const ManageBooks = () => {
           value={formData.publisher}
           onChange={handleInputChange}
         />
+        <input
+          type="text"
+          name="newPrice"
+          placeholder="newPrice"
+          value={formData.newPrice}
+          onChange={handleInputChange}
+        />
+        <input
+          type="text"
+          name="oldPrice"
+          placeholder="oldPrice"
+          value={formData.oldPrice}
+          onChange={handleInputChange}
+        />
         <input type="file" name="image" onChange={handleImageChange} />
+        <input type="file" name="pdfFile" onChange={handlePdfChange} />I
         <button onClick={addBook}>Add Book</button>
         <button onClick={updateBook}>Update Book</button>
       </div>

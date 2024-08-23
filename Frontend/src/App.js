@@ -15,6 +15,8 @@ import Logout from "./pages/logout.jsx";
 import ManageBooks from "./pages/books.jsx";
 import Cart from "./pages/cart.jsx";
 import BookDetail from "./pages/backendImage.jsx";
+import DescribeBook from "./pages/describeBook.jsx";
+
 function App() {
   const location = useLocation();
   // const { username } = useParams();
@@ -49,6 +51,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/books" element={<ManageBooks />} />
         <Route path="/search" element={<BookDetail />} />
+        <Route path="/describe/:id" element={<DescribeBook />} />
       </Routes>
       {!isLandingPage && !isHidden && <Footer />}
     </div>

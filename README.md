@@ -477,6 +477,38 @@ Notes
 Authentication: Ensure the request includes a valid authentication token in the Authorization header. The endpoint relies on req.user.userId to identify the user, which assumes that the user is authenticated and their ID is available in the request object.
 Order Creation: The order is created based on the current user's cart. If the cart is empty or not found, an error will be thrown by the OrderService.createOrder method.
 
+3. DELETE cart/CancelOrder/
+Description:
+This endpoint allows the user to cancel an existing order by providing the order's unique ID.
+
+Request Method: DELETE
+URL: http://0.0.0.0:5000/cart/CancelOrder/:orderId
+Path Parameters:
+
+orderId (string): The unique identifier of the order that you want to cancel.
+
+Headers:
+Authorization (string): A bearer token for authentication is needed because the endpoint is secured.
+
+Response:
+Success (200 OK):
+
+Description: The order was successfully canceled.
+Body:
+```
+{
+  "message": "Order canceled successfully"
+}
+```
+
+Error (500 Internal Server Error):
+Description: An error occurred while attempting to cancel the order.
+Body:
+```
+{
+  "message": "Internal Server Error"
+}
+```
 
 **Protected Routes**
 1. Dashboard

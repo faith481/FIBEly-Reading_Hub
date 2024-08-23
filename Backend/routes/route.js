@@ -7,8 +7,8 @@ const adminRoutes = require("./adminRoute");
 const bookRoutes = require("./bookRoutes");
 const readerRoutes = require("./readerRoute");
 const cartRoutes = require("./cartRoutes");
-const paymentRoutes = require('./payment_route');
-
+const paymentRoutes = require("./payment_route");
+const frontBooks = require("./frontBooks");
 // User Authentication Routes
 router.use("/auth", authRoutes);
 
@@ -30,5 +30,8 @@ router.use("/", readerRoutes);
 
 //routes for adding carts
 router.use("/cart", cartRoutes);
+
+//to fetch images for the fronted
+router.use("/front", frontBooks);
 
 module.exports = router;

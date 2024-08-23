@@ -2,26 +2,42 @@ const express = require("express");
 const bRouter = express.Router();
 const Book = require("../models/booksModel");
 const requireRole = require("../middleware/middleRole");
+const upload = require("../middleware/multer");
+const fs = require("fs");
+
+//const upload = multer({ dest: "./uploads/" });
 
 // Upload a new book
-bRouter.post("/upload", requireRole("publisher"), async (req, res) => {
-  try {
-    const { title, author, genre, publicationDate, publisher } = req.body;
-    const newBook = new Book({
-      title,
-      author,
-      genre,
-      publicationDate,
-      publisher,
-    });
-    await newBook.save();
-    res
-      .status(201)
-      .json({ message: "Book uploaded successfully", book: newBook });
-  } catch (error) {
-    res.status(500).json({ message: "Error uploading book", error });
+bRouter.post(
+  "/upload",
+  requireRole("publisher"),
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { title, author, genre, publicationDate, publisher } = req.body;
+      const image = req.file;
+      const imageData = fs.readFileSync(image.path);
+      const base64Image = imageData.toString("base64"); // convert the image fromat into base64 to retrievei it to the front end
+
+      const newBook = new Book({
+        title,
+        author,
+        genre,
+        publicationDate,
+        publisher,
+        image: base64Image,
+      });
+
+      await newBook.save();
+      res
+        .status(201)
+        .json({ message: "Book uploaded successfully", book: newBook });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error uploading book", error });
+    }
   }
-});
+);
 
 // Update a book
 bRouter.put("/update/:id", requireRole("publisher"), async (req, res) => {
@@ -67,7 +83,7 @@ bRouter.get("/:title", async (req, res) => {
   }
 });
 
-//function to delete books by
+//function to delete books by title
 bRouter.delete(
   "/deltitle/:title",
   requireRole("publisher"),

@@ -510,6 +510,37 @@ Body:
 }
 ```
 
+Error (500 Internal Server Error):
+Description: An error occurred while attempting to cancel the order.
+Body:
+```
+{
+  "message": "Internal Server Error"
+}
+```
+
+Error (404 Not Found):
+Description: The specified order could not be found.
+Body:
+```
+{
+  "message": "Order not found"
+}
+```
+Example Request:
+
+DELETE http://0.0.0.0:5000/cart/CancelOrder/66c739f7bcda5ece37908ac1 HTTP/1.1
+
+Host: localhost:3000
+
+Authorization: Bearer <your Token>
+Example Response:
+```
+{
+  "message": "Order canceled successfully"
+}
+```
+
 **Protected Routes**
 1. Dashboard
 Endpoint: GET /protected/dashboard

@@ -5,7 +5,12 @@ const mongoose = require('mongoose');
 const paymentSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     cartId: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart', required: true },
-    amount: { type: Number, required: true },
+    Books: [{
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Book' },
+        title: { type: String },
+        price: { type: Number }
+    }],
+    AmountPaid: { type: Number, required: true },
     currency: { type: String, default: 'usd' },
     status: { type: String, enum: ['pending', 'completed', 'failed'], default: 'pending' },
     stripePaymentIntentId: { type: String, required: true },

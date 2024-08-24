@@ -66,7 +66,50 @@ class OrderService {
       console.error('Error retrieving order details:', error);
       throw new Error('Internal Server Error');
     }
-  }  
+  }
+
+  static async updateOrderStatus(orderId, status) {
+    try {
+      // Validate status input
+      const validStatuses = ['pending', 'processing', 'completed', 'canceled'];
+      if (!validStatuses.includes(status)) {
+        throw new Error('Invalid status value');
+      }
+
+      // Update the order status
+      const order = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
+
+      // If no order found, throw an error
+      if (!order) {
+        throw new Error('Order not found');
+      }
+
+      // Return the updated order
+      return order;
+    } catch (error) {
+      console.error('Error updating order status:', error);
+      throw new Error('Internal Server Error');
+    }
+  }
+
+  // Method to cancel an order
+  static async cancelOrder(orderId) {
+    try {
+      // Find and delete the order
+      const order = await Order.findByIdAndDelete(orderId);
+
+      // If no order found, throw an error
+      if (!order) {
+        throw new Error('Order not found');
+      }
+
+      // Return a confirmation message
+      return { message: 'Order canceled successfully' };
+    } catch (error) {
+      console.error('Error canceling order:', error);
+      throw new Error('Internal Server Error');
+    }
+  }
 }
 
 module.exports = OrderService;

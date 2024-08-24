@@ -17,6 +17,9 @@ router.use("/auth", authRoutes);
 router.use("/protected", protectedRoutes);
 //router.use("/auth", authRoutes);
 
+//order route
+router.use("/order", authenticateJWT, orderRouter);
+
 // Book Routes (accessible by publishers and readers)
 router.use("/books", authenticateJWT, booksRoutes);
 

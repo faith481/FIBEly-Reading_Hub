@@ -8,7 +8,8 @@ const mongoose = require("./utils/db");
 const route = require("./routes/route");
 //const user = require("./models/userModel");
 const cors = require("cors");
-
+const upload = require("./middleware/multer");
+const path = require("path");
 const app = express();
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use(
 );
 
 app.use("/", route);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 //app.use(route);
 
@@ -39,5 +41,9 @@ app.use("/", route);
 //});
 
 const PORT = process.env.PORT || 5000;
-const IP_ADDRESS = process.env.NODE_IP_ADDRESS || '127.0.0.1';
-app.listen(PORT,IP_ADDRESS, () => console.log(`Server is running on port ${PORT} and the IP address is ${IP_ADDRESS}`));
+const IP_ADDRESS = process.env.NODE_IP_ADDRESS || "127.0.0.1";
+app.listen(PORT, IP_ADDRESS, () =>
+  console.log(
+    `Server is running on port ${PORT} and the IP address is ${IP_ADDRESS}`
+  )
+);

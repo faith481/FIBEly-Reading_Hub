@@ -1,7 +1,11 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Payment = require('./payment_schema');
+const endpoint_secret = process.env.STRIPE_ENDPOINT_SECRET;
 const User = require('../userModel');
 const OrderService = require('./orderControll');
+const Cart = require('../cartModel');
+const Order = require('./Order_schema');
+
 
 const validPaymentMethodTypes = [
     'card', 'bank_transfer', 'alipay', 'wechat_pay', 'ideal',
@@ -67,33 +71,67 @@ class PaymentController {
             res.status(500).send({ error: error.message });
         }
     }
-    
 
     static async handleWebhook(req, res) {
         const sig = req.headers['stripe-signature'];
-
+        const endpointSecret = 'endpoint_secret';
+    
         let event;
-
+    
         try {
-            event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+          event = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecret);
         } catch (err) {
-            return res.status(400).send(`Webhook Error: ${err.message}`);
+          console.error('Webhook Error:', err.message);
+          return res.status(400).send(`Webhook Error: ${err.message}`);
         }
-
+    
         // Handle the event
-        if (event.type === 'payment_intent.succeeded') {
+        switch (event.type) {
+          case 'payment_intent.succeeded':
             const paymentIntent = event.data.object;
-
-            await Payment.findOneAndUpdate(
+    
+            try {
+              // Find and update the payment status
+              const payment = await Payment.findOneAndUpdate(
                 { stripePaymentIntentId: paymentIntent.id },
-                { status: 'completed' }
-            );
-
-            console.log('Payment completed:', paymentIntent.id);
+                { status: 'completed' },
+                { new: true }
+              );
+    
+              if (!payment) {
+                throw new Error('Payment not found');
+              }
+    
+              // Find and update the order status
+              const order = await Order.findByIdAndUpdate(
+                payment.orderId,
+                { status: 'completed' },
+                { new: true }
+              );
+    
+              if (!order) {
+                throw new Error('Order not found');
+              }
+    
+              // Delete the associated cart
+              await Cart.findByIdAndDelete(payment.cartId);
+    
+              console.log(`PaymentIntent ${paymentIntent.id} succeeded, payment and order updated, cart deleted.`);
+            } catch (error) {
+              console.error('Error processing successful payment:', error.message);
+              // Optionally, handle errors here (e.g., send alerts, log errors)
+            }
+    
+            break;
+          
+          // Handle other event types if needed
+    
+          default:
+            console.log(`Unhandled event type ${event.type}`);
         }
-
-        res.status(200).send({ received: true });
-    }
+    
+        res.status(200).send('Event received');
+      }
 }
 
 module.exports = PaymentController;

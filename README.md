@@ -6,12 +6,19 @@ FIBEly ReadingHub is a web-based application that allows users to browse, purcha
 **Features**
 
 Browse Books: Users can browse through a variety of books categorized under Fiction, Non-Fiction, and Others.
+
 Search Books: Users can search for books by title using the search bar in the navbar.
+
 View Book Details: Each book has a dedicated page displaying its title, author, price, and cover image.
+
 Add to Cart: Users can add books to their cart for easy purchase.
+
 Purchase Books: Users can pay for books using integrated Stripe payments.
+
 Read Books: After purchasing, users can read books directly in the browser via an embedded PDF viewer.
-Getting Started
+
+
+**Getting Started**
 
 **Prerequisites**
 Ensure you have the following installed:

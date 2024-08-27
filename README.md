@@ -262,6 +262,107 @@ Response (Error 500):
 }
 ```
 
+3. Get User Cart
+Endpoint: GET /cart
+Description: Retrieve the current user's cart.
+Headers: Include the Authorization header with the JWT token.
+Response: 200 OK with the cart details.
+Testing: Send a GET request to /cart.
+
+
+4. Delete all items in a users Cart
+Endpoint: DELETE /cart
+Description: Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
+
+
+HTTP Method: POST  
+URL: http://0.0.0.0:5000/cart/clearCart
+
+
+Authentication
+Required: JWT (JSON Web Token)
+Method: Bearer Token
+Header: Authorization: Bearer <token>
+Request Headers
+Authorization: Bearer token for user authentication
+Request Body
+Body: No body content is required for this endpoint.
+Responses
+Success Response (Status: 200 OK)
+Body:
+json
+```
+{
+  "message": "All books removed from cart",
+  "cart": {
+    "_id": "60b9b1b2e3b16e50e8f2c3f1",
+    "user": "60b9a9a6e3b16e50e8f2c3f0",
+    "books": [],
+    "createdAt": "2024-08-20T09:28:51.026Z",
+    "__v": 1
+  }
+}
+```
+Description: The response confirms that all books have been removed from the cart and returns the updated cart object with an empty books array.
+
+
+Error Responses
+
+
+Error 404 (Not Found)
+
+
+Content-Type: application/json
+Body:
+json
+```
+{
+  "message": "Cart not found"
+}
+```
+Description: The cart for the specified user does not exist.
+
+
+Error 500 (Internal Server Error)
+
+
+Content-Type: application/json
+Body:
+json
+```
+{
+  "error": "Internal Server Error"
+}
+```
+Description: An unexpected error occurred while processing the request.
+
+
+Example Usage
+Request:
+
+
+http
+POST cart/clearCart
+Host: http://0.0.0.0:5000
+Authorization: Bearer (your JWT)
+Content-Type: application/json
+Response:
+
+
+json
+```
+{
+  "message": "All books removed from cart",
+  "cart": {
+    "_id": "60b9b1b2e3b16e50e8f2c3f1",
+    "user": "60b9a9a6e3b16e50e8f2c3f0",
+    "books": [],
+    "createdAt": "2024-08-20T09:28:51.026Z",
+    "__v": 1
+  }
+}
+```
+
 
 
 

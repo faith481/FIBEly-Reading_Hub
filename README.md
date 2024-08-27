@@ -104,6 +104,25 @@ Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with a confirmation message.
 Testing: Send a DELETE request to /books/<bookId>.
 
+**Cart Management Routes**
+
+
+1. Add Book to Cart
+Endpoint: POST /cart
+Description: Add a book to the user's cart.
+
+
+Body:
+```
+{
+  "bookId": "<bookId>"
+}
+```
+Headers: Include the Authorization header with the JWT token.
+Response: 200 OK with the updated cart.
+Testing: Use raw JSON data in Postman.
+
+
 
 
 

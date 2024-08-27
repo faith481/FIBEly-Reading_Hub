@@ -66,25 +66,32 @@ This will run the Express server in development mode. Open http://localhost:5000
 **Navbar**
 
 Search Bar: Use the search bar at the top to find books by their title.
+
 Category Links: Navigate between different book categories (Fiction, Non-Fiction, Others).
+
 Cart: Access your cart to view or purchase selected books.
+
 Login/Logout: Login or logout of your account.
 
 **Free Books Section**
 
 Free Books: Browse through the most popular books in the Fiction category.
+
 View PDF: Click on the "View PDF" button to open and read the embedded PDF file directly.
 
 **Latest Books**
 
 Latest Books: Stay updated with the latest additions to the library.
+
 Book Details: Click on a book to view more details.
 
 
 **Cart**
 
 View Cart: Check the books you've added to your cart.
+
 Remove from Cart: Remove books from your cart if you change your mind.
+
 Proceed to Checkout: Click on "Checkout" to securely pay for your books using Stripe.
 
 **Stripe Payment Integration**

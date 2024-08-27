@@ -80,6 +80,31 @@ Headers: Include the Authorization header with the JWT token.
 Response: 201 Created with the newly added book.
 Testing: Use raw JSON data in Postman.
 
+4. Update a Book
+Endpoint: PATCH /books/:bookId
+Description: Update book details (Publisher Only).
+ 
+Body:
+```
+{
+  "title": "Updated Book Title",
+  "author": "Updated Author Name",
+  "genre": "Non-Fiction"
+}
+```
+Headers: Include the Authorization header with the JWT token.
+Response: 200 OK with the updated book details.
+Testing: Send a PATCH request to /books/<bookId> with the fields to update.
+
+
+5. Delete a Book
+Endpoint: DELETE /books/:bookId
+Description: Delete a book (Publisher or Admin Only).
+Headers: Include the Authorization header with the JWT token.
+Response: 200 OK with a confirmation message.
+Testing: Send a DELETE request to /books/<bookId>.
+
+
 
 
 

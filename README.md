@@ -1,8 +1,10 @@
 **FIBEly ReadingHub Frontend Documentation**
 **Overview**
+
 FIBEly ReadingHub is a web-based application that allows users to browse, purchase, and read books online. The frontend is built using React, with a focus on providing a seamless and user-friendly experience.
 
 **Features**
+
 Browse Books: Users can browse through a variety of books categorized under Fiction, Non-Fiction, and Others.
 Search Books: Users can search for books by title using the search bar in the navbar.
 View Book Details: Each book has a dedicated page displaying its title, author, price, and cover image.
@@ -55,32 +57,39 @@ This will run the Express server in development mode. Open http://localhost:5000
 **Application Structure**
 
 **Navbar**
+
 Search Bar: Use the search bar at the top to find books by their title.
 Category Links: Navigate between different book categories (Fiction, Non-Fiction, Others).
 Cart: Access your cart to view or purchase selected books.
 Login/Logout: Login or logout of your account.
 
 **Free Books Section**
+
 Free Books: Browse through the most popular books in the Fiction category.
 View PDF: Click on the "View PDF" button to open and read the embedded PDF file directly.
 
 **Latest Books**
+
 Latest Books: Stay updated with the latest additions to the library.
 Book Details: Click on a book to view more details.
 
 
 **Cart**
+
 View Cart: Check the books you've added to your cart.
 Remove from Cart: Remove books from your cart if you change your mind.
 Proceed to Checkout: Click on "Checkout" to securely pay for your books using Stripe.
 
 **Stripe Payment Integration**
+
 When you're ready to purchase a book, the app will securely connect to Stripe for payment processing. Follow the prompts to enter your payment details and complete the purchase.
 
 **Known Issues**
+
 PDF Scrolling: The embedded PDF may scroll with the entire page. This will be addressed in future updates.
 
 **Conclusion**
+
 Thank you for using FIBEly ReadingHub! We hope you enjoy your reading experience. If you encounter any issues, please contact our support team.
 
 

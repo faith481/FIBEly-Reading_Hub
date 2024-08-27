@@ -62,3 +62,12 @@ button:hover {
 .all-books p {
   margin-bottom: 10px;
 }
+
+input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="file"] {
+  margin-left: 10px;
+}

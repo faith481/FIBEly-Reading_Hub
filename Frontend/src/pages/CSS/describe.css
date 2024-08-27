@@ -1,0 +1,49 @@
+.describe-books {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  /* background-color: #f7f7f7; */
+  border: 1 px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.describe-books img {
+  width: auto;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 50px;
+}
+
+.describe-books h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.describe-books p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.describe-books .author {
+  font-style: italic;
+}
+
+.describe-books .prices {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.describe-books .new-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.describe-books .old-price {
+  font-size: 18px;
+  text-decoration: line-through;
+  color: #666;
+}

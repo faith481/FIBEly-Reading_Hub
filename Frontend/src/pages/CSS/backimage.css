@@ -1,0 +1,52 @@
+/* Add some basic styling to the container */
+.book-detail-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-image: url("https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?fit=crop&w=1600&q=80");
+  /* background-color: #f9f9f9; */
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the book title */
+.book-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Add some styling to the image */
+.book-image {
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the author text */
+.book-author {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Add some spacing between elements */
+.book-detail-container > * {
+  margin-bottom: 20px;
+}
+
+/* Make the button look more elegant */
+.get-book-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.get-book-button:hover {
+  background-color: #3e8e41;
+}

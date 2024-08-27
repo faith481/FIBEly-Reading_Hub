@@ -1,11 +1,22 @@
 import React, { useState } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/Assets/Frontend_Assets/fibely1.jpeg";
 import cart_icon from "../assets/Assets/Frontend_Assets/cart_logo.jpeg";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("shop");
+  const navigate = useNavigate();
+
+  const isAdmin = false;
+
+  const handleAdminClick = () => {
+    if (!isAdmin) {
+      navigate("/books");
+      //alert("You were redirected because this is an admin-only page.");
+    }
+  };
+
   return (
     <div className="navbar">
       <div className="nav-logo">
@@ -42,6 +53,12 @@ const Navbar = () => {
             Search
           </Link>
           {menu === "image" ? <hr /> : null}
+        </li>
+        <li onClick={handleAdminClick}>
+          <Link style={{ textDecoration: "none" }} to="/books">
+            Publishers
+          </Link>
+          {menu === "publishers" ? <hr /> : null}
         </li>
       </ul>
       <div className="nav-login-cart">

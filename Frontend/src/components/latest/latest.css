@@ -23,3 +23,44 @@
   gap: 10px;
   width: 90%;
 }
+
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px 30px; /* Increased padding for better readability */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Increased box shadow for better depth */
+  z-index: 1000;
+  font-size: 18px; /* Increased font size for better readability */
+  font-weight: 500; /* Added font weight for better emphasis */
+  color: #333; /* Changed text color to a darker gray for better contrast */
+  text-align: center; /* Centered text for better alignment */
+  max-width: 300px; /* Added max-width to prevent notification from getting too wide */
+  animation: fadeIn 0.3s ease-in-out; /* Added animation for a smoother appearance */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.notification.success {
+  background-color: #c6efce;
+  border-color: #b2fffc;
+  color: #3e8e41;
+}
+
+.notification.error {
+  background-color: #f7cac9;
+  border-color: #ffbaba;
+  color: #e74c3c;
+}

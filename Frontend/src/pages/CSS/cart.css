@@ -2,13 +2,14 @@
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
+  background-image: url("https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?fit=crop&w=1600&q=80");
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .cart-title {
-  font-size: 24px;
+  font-size: 40px;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -26,7 +27,7 @@
 }
 
 .cart-item {
-  padding: 20px;
+  padding: 40px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -34,26 +35,37 @@
   border-bottom: none;
 }
 
-.book-title {
-  font-size: 18px;
-  font-weight: bold;
+.cart-item img {
+  width: 70px;
+  height: 70px;
   margin-right: 10px;
+  border-radius: 5px;
 }
 
-.book-author {
-  font-size: 16px;
-  color: #666;
+.cart-item p {
+  margin-bottom: 10px;
 }
 
-.add-more-btn {
-  background-color: #4caf50;
+.cart-item p:last-child {
+  font-weight: bold;
+  color: #337ab7;
+}
+
+.total-price {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.payment-button {
+  background-color: #337ab7;
   color: #fff;
   border: none;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 25px;
   cursor: pointer;
 }
 
-.add-more-btn:hover {
-  background-color: #3e8e41;
+.payment-button:hover {
+  background-color: #23527c;
 }

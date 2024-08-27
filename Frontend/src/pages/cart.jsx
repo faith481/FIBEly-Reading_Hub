@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CSS/cart.css";
+import Latest from "../components/latest/latest";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const [error, setError] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   // Function to get the user's cart
   const fetchCart = async () => {
@@ -17,6 +19,7 @@ const Cart = () => {
       });
       console.log(res);
       setCart(res.data.cart.books);
+      calculateTotalPrice(res.data.cart.books);
     } catch (err) {
       setError("Failed to fetch cart");
     }
@@ -37,9 +40,19 @@ const Cart = () => {
         }
       );
       setCart(res.data.cart.books);
+      calculateTotalPrice(res.data.cart.books);
     } catch (err) {
       setError("Failed to add book to cart");
     }
+  };
+
+  // Function to calculate the total price of the books in the cart
+  const calculateTotalPrice = (books) => {
+    const totalPrice = books.reduce(
+      (acc, book) => acc + parseFloat(book.newPrice),
+      0
+    );
+    setTotalPrice(totalPrice);
   };
 
   // Fetch the cart when the component mounts
@@ -47,6 +60,12 @@ const Cart = () => {
     fetchCart();
     console.log(cart);
   }, []);
+
+  // Function to handle payment
+  const handlePayment = () => {
+    // Redirect to payment method
+    window.location.href = "/payment";
+  };
 
   return (
     <div className="cart-container">
@@ -59,9 +78,15 @@ const Cart = () => {
             <p>Book Title: {item.title}</p>
             <p>Author: {item.author}</p>
             <p>Publisher: {item.publisher}</p>
+            <p>Price: ${item.newPrice}</p>
           </li>
         ))}
       </ul>
+      <p className="total-price">Total Price: ${totalPrice}</p>
+      <button className="payment-button" onClick={handlePayment}>
+        Proceed to Payment
+      </button>
+      {/* <Latest addToCart={addToCart} /> */}
     </div>
   );
 };

@@ -44,6 +44,16 @@ Endpoint: POST /auth/logout
 Description: Log out the current user and invalidate the session.
 Headers: Include the session token in the request.
 
+**Book Management Routes**
+
+
+1. Get All Books
+Endpoint: GET /books
+Description: Retrieve all books.
+Headers: Include the Authorization header with the JWT token.
+Response: 200 OK with a list of books.
+Testing: Send a GET request to /books.
+
 
 
 

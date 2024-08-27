@@ -61,6 +61,25 @@ Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with book details.
 Testing: Send a GET request to /books/<bookId>
 
+3. Add a New Book
+Endpoint: POST /books
+Description: Create a new book (Publisher Only).
+
+
+Body:
+```
+{
+  "title": "Book Title",
+  "author": "Author Name",
+  "genre": "Fiction",
+  "publicationDate": "2023-12-01",
+  "publisher": "Publisher Name"
+}
+```
+Headers: Include the Authorization header with the JWT token.
+Response: 201 Created with the newly added book.
+Testing: Use raw JSON data in Postman.
+
 
 
 

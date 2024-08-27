@@ -54,6 +54,13 @@ Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with a list of books.
 Testing: Send a GET request to /books.
 
+2. Get Book by ID
+Endpoint: GET /books/:bookId
+Description: Retrieve a book by its ID.
+Headers: Include the Authorization header with the JWT token.
+Response: 200 OK with book details.
+Testing: Send a GET request to /books/<bookId>
+
 
 
 

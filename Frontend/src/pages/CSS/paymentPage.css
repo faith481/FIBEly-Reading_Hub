@@ -1,0 +1,85 @@
+.payment-page {
+  display: flex;
+  flex-direction: column;
+  background-image: url("https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?fit=crop&w=1600&q=80");
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+/* Header Styles */
+.payment-page h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Payment Form Container */
+.payment-page .stripe-container {
+  background: #fff;
+  flex-direction: row;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Payment Status Messages */
+.payment-page p {
+  font-size: 1rem;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.payment-page p:first-of-type {
+  color: #4caf50; /* Success color */
+}
+
+.payment-page p:last-of-type {
+  color: #f44336; /* Error color */
+}
+
+.stripe-elements {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.stripe-elements .StripeElement {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.notification {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.notification.success {
+  background-color: #dff0df;
+  border-color: #3e8e41;
+}
+
+.notification.error {
+  background-color: #f2dede;
+  border-color: #b94a48;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

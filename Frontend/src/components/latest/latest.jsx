@@ -3,6 +3,8 @@ import axios from "axios";
 import Items from "../items/Items";
 import "./latest.css";
 import { Link } from "react-router-dom";
+import { addToCart, showNotification } from "./addtoCart";
+
 const Latest = () => {
   const [latestBooks, setLatestBooks] = useState([]);
   const token = localStorage.getItem("token");
@@ -25,6 +27,21 @@ const Latest = () => {
     fetchLatestBooks();
   }, []);
 
+  const handleAddToCart = (bookId) => {
+    addToCart(bookId)
+      .then((cart) => {
+        showNotification("Book added to cart successfully!", "success");
+        console.log(cart);
+      })
+      .catch((err) => {
+        showNotification(
+          "Failed to add book to cart. Please try again.",
+          "error"
+        );
+        console.error(err);
+      });
+  };
+
   return (
     <div className="latest">
       <div className="latest-header">
@@ -43,10 +60,15 @@ const Latest = () => {
                 author={book.author}
                 new_price={book.newPrice}
                 old_price={book.oldPrice}
+                pdf={book.pdfFile}
               />
             </Link>
+            <button onClick={() => handleAddToCart(book._id)}>
+              Add to Cart
+            </button>
           </div>
         ))}
+        <div id="notification-container"></div>
       </div>
     </div>
   );

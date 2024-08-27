@@ -41,10 +41,17 @@ const BookDetail = () => {
           <h1 className="book-title">{book.title}</h1>
           <img
             className="book-image"
-            src={`data:image/jpg/jpeg/png;base64,${book.image}`}
+            src={`http://localhost:5000/${book.image}`}
             alt={book.title}
           />
           <p className="book-author">{book.author}</p>
+          {/* Display the PDF */}
+          <embed
+            src={`http://localhost:5000/pdf/${book._id}`}
+            width="100%"
+            height="600px"
+            type="application/pdf"
+          />
         </div>
       )}
     </div>

@@ -80,6 +80,7 @@ Search Bar: Use the search bar at the top to find books by their title.
 
 Category Links: Navigate between different book categories (Fiction, Non-Fiction, Others).
 
+
 Cart: Access your cart to view or purchase selected books.
 
 Login/Logout: Login or logout of your account.

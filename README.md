@@ -25,6 +25,26 @@ Body:
 Response: 201 Created
 Testing: Use raw JSON data in Postman.
 
+2. Login
+Endpoint: POST /auth/login
+Description: Log in and receive a JWT token.
+Body:
+```
+{
+  "email": "bruka@example.com",
+  "password": "password123"
+}
+```
+Response: 200 OK with JWT token.
+Testing: Copy the JWT token for subsequent requests.
+
+
+3. Logout
+Endpoint: POST /auth/logout
+Description: Log out the current user and invalidate the session.
+Headers: Include the session token in the request.
+
+
 
 
 

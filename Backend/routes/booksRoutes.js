@@ -119,4 +119,30 @@ bRouter.get("/files/:filename", (req, res) => {
   res.sendFile(filePath);
 });
 
+bRouter.get("/pdf/:id", async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+
+    if (!book || !book.pdfFile) {
+      return res.status(404).json({ message: "PDF not found" });
+    }
+
+    // Convert base64 string back to binary data
+    const pdfBuffer = Buffer.from(book.pdfFile, "base64");
+
+    // Set the appropriate headers
+    res.setHeader(
+      "Content-Disposition",
+      `inline; filename="${book.pdfFileName}"`
+    );
+    res.setHeader("Content-Type", "application/pdf");
+
+    // Send the PDF buffer as a response
+    res.send(pdfBuffer);
+  } catch (error) {
+    console.error("Error fetching PDF:", error);
+    res.status(500).json({ message: "Error fetching PDF" });
+  }
+});
+
 module.exports = bRouter;

@@ -614,6 +614,85 @@ Example Response:
 }
 ```
 
+4. PATCH cart/updateOrderStatus/:orderId
+Summary: Update the status of an existing order.
+
+Description: This endpoint allows users to update the status of a specific order by providing a valid orderId and a new status value in the request body. The updated order details are returned upon success.
+
+Parameters:
+
+Path Parameters:
+orderId (string, required): The unique identifier of the order you want to update.
+Request Body:
+status (string, required): The new status of the order. This must be a valid status value ('pending','processing', 'completed', 'canceled').
+
+Request Example:
+PATCH cart/updateOrderStatus/66c739f7bcda5ece37908ac1
+Content-Type: application/json
+```
+{
+  "status": "shipped"
+}
+```
+Responses:
+
+200 OK:
+
+Description: The order status was updated successfully.
+Response Body Example:
+```
+{
+  "message": "Order status updated successfully",
+  "order": {
+	"_id": "66c739f7bcda5ece37908ac1",
+	"userId": "66c170abc0fba5728fdf92b1",
+	"cartId": "66c461d358b2751592e0e56c",
+	"books": [
+  	{
+    	"_id": "60c72b2f5f1b2c001c8f3e01",
+    	"title": "Example Book",
+    	"price": 29.99
+  	}
+	],
+	"totalPrice": 29.99,
+	"status": "shipped",
+	"createdAt": "2024-08-22T13:15:35.439Z",
+	"__v": 0
+  }
+}
+```
+
+400 Bad Request:
+
+Description: The request was invalid due to missing or incorrect status or orderId.
+
+Response Body Example:
+```
+{
+  "message": "Invalid status value, or orderId"
+}
+```
+404 Not Found:
+
+Description: The order with the given orderId was not found.
+
+Response Body Example:
+```
+{
+  "message": "Order not found"
+}
+```
+500 Internal Server Error:
+
+Description: An error occurred on the server while updating the order status.
+
+Response Body Example:
+```
+{
+  "message": "Internal Server Error"
+}
+```
+
 
 
 

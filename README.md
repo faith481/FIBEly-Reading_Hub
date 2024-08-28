@@ -117,10 +117,10 @@ PDF Scrolling: The embedded PDF may scroll with the entire page. This will be ad
 
 Thank you for using FIBEly ReadingHub! We hope you enjoy your reading experience. If you encounter any issues, please contact our support team.
 
+
 **FIBEly Reading Hub - Backend Book API Documentation**
 
-Base URL
-
+Base url
 ```
 http://localhost:5000
 ```
@@ -130,12 +130,10 @@ JWT Token: Required for all routes except sign-up and login.
 Headers: Include Authorization: Bearer <JWT_TOKEN> in all requests except sign-up and login.
 
 **User Authentication Routes**
-
 1. Sign Up
-   Endpoint: POST /auth/signup
-   Description: Create a new user account.
-   Body:
-
+Endpoint: POST /auth/signup
+Description: Create a new user account.
+Body:
 ```
 {
   "username": "bruka",
@@ -144,29 +142,25 @@ Headers: Include Authorization: Bearer <JWT_TOKEN> in all requests except sign-u
   "role": "normal_user" // Options: "normal_user", "publisher", "admin"
 }
 ```
-
 Response: 201 Created
 Testing: Use raw JSON data in Postman.
-
-2. Login
    Endpoint: POST /auth/login
    Description: Log in and receive a JWT token.
    Body:
-
 ```
 {
   "email": "bruka@example.com",
   "password": "password123"
 }
 ```
-
 Response: 200 OK with JWT token.
 Testing: Copy the JWT token for subsequent requests.
 
+
 3. Logout
-   Endpoint: POST /auth/logout
-   Description: Log out the current user and invalidate the session.
-   Headers: Include the session token in the request.
+Endpoint: POST /auth/logout
+Description: Log out the current user and invalidate the session.
+Headers: Include the session token in the request.
 
 **Book Management Routes**
 
@@ -189,7 +183,6 @@ Testing: Copy the JWT token for subsequent requests.
    Description: Create a new book (Publisher Only).
 
 Body:
-
 ```
 {
   "title": "Book Title",
@@ -199,15 +192,17 @@ Body:
   "publisher": "Publisher Name"
 }
 ```
-
 Headers: Include the Authorization header with the JWT token.
 Response: 201 Created with the newly added book.
-Testing: Use raw JSON data in Postman. 4. Update a Book
+Testing: Use raw JSON data in Postman.
+
+4. Update a Book
 Endpoint: PATCH /books/:bookId
 Description: Update book details (Publisher Only).
-
+Headers: Include the Authorization header with the JWT token.
+Response: 201 Created with the newly added book.
+Testing: Use raw JSON data in Postman
 Body:
-
 ```
 {
   "title": "Updated Book Title",
@@ -215,7 +210,6 @@ Body:
   "genre": "Non-Fiction"
 }
 ```
-
 Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with the updated book details.
 Testing: Send a PATCH request to /books/<bookId> with the fields to update.
@@ -234,22 +228,22 @@ Testing: Send a PATCH request to /books/<bookId> with the fields to update.
    Description: Add a book to the user's cart.
 
 Body:
-
 ```
 {
   "bookId": "<bookId>"
 }
 ```
-
 Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with the updated cart.
 Testing: Use raw JSON data in Postman.
 
 2. Remove Book from Cart
-   Endpoint: REMOVE /cart
-   Description: Removes a specified book from the user's cart. This endpoint requires authentication and updates the cart by removing the book with the given ID.
+Endpoint: REMOVE /cart
+Description: Removes a specified book from the user's cart. This endpoint requires authentication and updates the cart by removing the book with the given ID.
+
 
 HTTP Method: POST
+
 
 URL: http://0.0.0.0:5000/cart/remove
 
@@ -261,21 +255,17 @@ Request Headers
 Authorization: Bearer token for user authentication
 Request Body
 Content-Type: application/json
-
 Body:
-
 ```
 {
   "bookId": "string" // ID of the book to be removed
 }
 ```
-
 Responses
 Success Response (Status: 200 OK)
 
 Content-Type: application/json
 Body:
-
 ```
 {
   "message": "Book removed from cart",
@@ -300,55 +290,45 @@ Error 400 (Bad Request)
 
 Content-Type: application/json
 body:
-
 ```
 {
   "message": "Book not found in cart"
 }
 ```
-
 Description: The specified book ID was not found in the cart, so no book was removed.
 
 Error 404 (Not Found)
 
 Content-Type: application/json
 Body:
-
 ```
 {
   "message": "Cart not found"
 }
 ```
-
 Description: No cart exists for the specified user.
 
 Error 500 (Internal Server Error)
 
 Content-Type: application/json
 Body:
-
 ```
 {
   "error": "Internal Server Error"
 }
 ```
-
 Description: An unexpected error occurred while processing the request.
-
 Example Usage
 Request: http
 POST cart/remove HTTP/1.1
 Host: http://0.0.0.0:5000
 Authorization: Bearer <your_jwt_token>
-
 ```
 {
   "bookId": "60b9b1b2e3b16e50e8f2c3f2"
 }
 ```
-
 Response (Success):
-
 ```
 {
   "message": "Book removed from cart",
@@ -363,26 +343,22 @@ Response (Success):
     "__v": 1
   }
 }
+  
 ```
-
 Response (Error 400):
-
 ```
 {
   "message": "Book not found in cart"
 }
 ```
-
 Response (Error 404):
-
 ```
 {
   "message": "Cart not found"
 }
+  
 ```
-
 Response (Error 500):
-
 ```
 {
   "error": "Internal Server Error"
@@ -399,10 +375,8 @@ Response (Error 500):
 4. Delete all items in a users Cart
    Endpoint: DELETE /cart
    Description: Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
-
 HTTP Method: POST  
 URL: http://0.0.0.0:5000/cart/clearCart
-
 Authentication
 Required: JWT (JSON Web Token)
 Method: Bearer Token
@@ -414,8 +388,6 @@ Body: No body content is required for this endpoint.
 Responses
 Success Response (Status: 200 OK)
 Body:
-json
-
 ```
 {
   "message": "All books removed from cart",
@@ -428,7 +400,6 @@ json
   }
 }
 ```
-
 Description: The response confirms that all books have been removed from the cart and returns the updated cart object with an empty books array.
 
 Error Responses
@@ -437,42 +408,32 @@ Error 404 (Not Found)
 
 Content-Type: application/json
 Body:
-json
-
 ```
 {
   "message": "Cart not found"
 }
 ```
-
 Description: The cart for the specified user does not exist.
 
 Error 500 (Internal Server Error)
 
 Content-Type: application/json
 Body:
-json
-
 ```
 {
   "error": "Internal Server Error"
 }
 ```
-
 Description: An unexpected error occurred while processing the request.
 
 Example Usage
 Request:
-
 http
 POST cart/clearCart
 Host: http://0.0.0.0:5000
 Authorization: Bearer (your JWT)
 Content-Type: application/json
 Response:
-
-json
-
 ```
 {
   "message": "All books removed from cart",
@@ -486,9 +447,10 @@ json
 }
 ```
 
+
 **Order Management Routes**
 
-1. GET cart/order/:id
+1. GET order/order/:id
    Description:
    Fetches the details of a specific order based on the provided order ID.
    URL: http://localhost:5000/cart/order/:id
@@ -510,7 +472,7 @@ Request Body: No body content is required for this endpoint.
 
 Example Request
 
-GET cart/order/60c72b2f5f1b2c001c8f3e09 HTTP/1.1
+GET order/order/60c72b2f5f1b2c001c8f3e09 HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
 Authorization: Bearer <your_token_here>
@@ -574,12 +536,11 @@ Error Handling
 If the order with the specified ID does not exist, the endpoint will return a 404 Not Found response with a message indicating that the order was not found.
 500 Internal Server Error: If an unexpected error occurs while processing the request, the endpoint will return a 500 Internal Server Error response with a general error message.
 
-2. POST cart/createOrder
+2. POST order/createOrder
    Description:
    Creates a new order for the currently authenticated user.
    URL: http://localhost:5000/cart/createOrder
    Method: POST
-
 Request Headers
 Content-Type: application/json
 Authorization: Bearer <your_token_here>
@@ -596,7 +557,6 @@ Success Response
 Status Code: 201 Created
 Content-Type: application/json
 Response Body:
-
 ```
 {
   "message": "Order created successfully",
@@ -618,14 +578,12 @@ Response Body:
   }
 }
 ```
-
+  
 **Error Responses**
-
 Internal Server Error
 Status Code: 500 Internal Server Error
 Content-Type: application/json
 Response Body:
-
 ```
 {
   "message": "Internal Server Error",
@@ -636,13 +594,13 @@ Response Body:
 Error Handling
 500 Internal Server Error: If an unexpected error occurs while creating the order, the endpoint will return a 500 Internal Server Error response with a general error message.
 
-Notes
+**Notes**
 Authentication: Ensure the request includes a valid authentication token in the Authorization header. The endpoint relies on req.user.userId to identify the user, which assumes that the user is authenticated and their ID is available in the request object.
 Order Creation: The order is created based on the current user's cart. If the cart is empty or not found, an error will be thrown by the OrderService.createOrder method.
 
-3. DELETE cart/CancelOrder/
-   Description:
-   This endpoint allows the user to cancel an existing order by providing the order's unique ID.
+3. DELETE order/CancelOrder/
+Description:
+This endpoint allows the user to cancel an existing order by providing the order's unique ID.
 
 Request Method: DELETE
 URL: http://0.0.0.0:5000/cart/CancelOrder/:orderId
@@ -658,7 +616,6 @@ Success (200 OK):
 
 Description: The order was successfully canceled.
 Body:
-
 ```
 {
   "message": "Order canceled successfully"
@@ -668,7 +625,6 @@ Body:
 Error (500 Internal Server Error):
 Description: An error occurred while attempting to cancel the order.
 Body:
-
 ```
 {
   "message": "Internal Server Error"
@@ -678,13 +634,11 @@ Body:
 Error (404 Not Found):
 Description: The specified order could not be found.
 Body:
-
 ```
 {
   "message": "Order not found"
 }
 ```
-
 Example Request:
 
 DELETE http://0.0.0.0:5000/cart/CancelOrder/66c739f7bcda5ece37908ac1 HTTP/1.1
@@ -693,14 +647,13 @@ Host: localhost:3000
 
 Authorization: Bearer <your Token>
 Example Response:
-
 ```
 {
   "message": "Order canceled successfully"
 }
 ```
 
-4. PATCH cart/updateOrderStatus/:orderId
+4. PATCH order/updateOrderStatus/:orderId
    Summary: Update the status of an existing order.
 
 Description: This endpoint allows users to update the status of a specific order by providing a valid orderId and a new status value in the request body. The updated order details are returned upon success.
@@ -715,20 +668,17 @@ status (string, required): The new status of the order. This must be a valid sta
 Request Example:
 PATCH cart/updateOrderStatus/66c739f7bcda5ece37908ac1
 Content-Type: application/json
-
 ```
 {
   "status": "shipped"
 }
 ```
-
 Responses:
 
 200 OK:
 
 Description: The order status was updated successfully.
 Response Body Example:
-
 ```
 {
   "message": "Order status updated successfully",
@@ -756,36 +706,82 @@ Response Body Example:
 Description: The request was invalid due to missing or incorrect status or orderId.
 
 Response Body Example:
-
 ```
 {
   "message": "Invalid status value, or orderId"
 }
 ```
-
 404 Not Found:
 
 Description: The order with the given orderId was not found.
 
 Response Body Example:
-
 ```
 {
   "message": "Order not found"
 }
 ```
-
 500 Internal Server Error:
 
 Description: An error occurred on the server while updating the order status.
 
 Response Body Example:
-
 ```
 {
   "message": "Internal Server Error"
 }
 ```
+  
+**Stripe webhook**
+paths:
+  /webhook:
+    post:
+      summary: Stripe Webhook Endpoint
+      description: |
+        This endpoint listens for Stripe webhook events to handle payment updates. Stripe sends various event notifications to this endpoint to notify the system of changes, such as payment success or failure.
+        
+        The endpoint processes the event, verifies its authenticity using the Stripe signature, and updates the order, payment, and cart information accordingly.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Raw Stripe event object.
+              example:
+                id: evt_1JH5Xe2eZvKYlo2CGh7
+                object: event
+                type: payment_intent.succeeded
+      responses:
+        '200':
+          description: Event received and processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Event received"
+        '400':
+          description: Error in processing the event.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Webhook Error: No signatures found matching the expected signature for payload."
+
+components:
+  securitySchemes:
+    stripeSignature:
+      type: http
+      scheme: bearer
+
+security:
+  - stripeSignature: []
 
 **Protected Routes**
 
@@ -795,3 +791,4 @@ Response Body Example:
    Headers: Include the Authorization header with the JWT token.
    Response: 200 OK with a welcome message.
    Testing: Send a GET request to /protected/dashboard.
+

@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react";
 import axios from "axios";
 import "./CSS/books.css";
-//import { jwtDecode } from "jwt-decode";
+
 const ManageBooks = () => {
   const [books, setBooks] = useState([]);
-  const [book, setBook] = useState(null);
+  const [title, setTitle] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -16,21 +16,23 @@ const ManageBooks = () => {
     image: null,
     pdfFile: null,
   });
-  const [title, setTitle] = useState("");
-  const [error, setError] = useState(null);
-  const [SearchBook, setSearchBook] = useState(null);
-  const token = localStorage.getItem("token");
-  // const decodedToken = jwtDecode(token);
 
-  //const checkTokenExpiration = () => {
-  //  if (
-  //    !decodedToken ||
-  //    !decodedToken.exp ||
-  //    decodedToken.exp * 1000 < Date.now()
-  //  ) {
-  //   setError("Invalid token or token has: expired");
-  // }
-  //};
+  const token = localStorage.getItem("token");
+
+  const showNotification = (message, type = "") => {
+    const notificationContainer = document.getElementById(
+      "notification-container"
+    );
+    const notificationElement = document.createElement("div");
+    notificationElement.className = `notification ${type}`;
+    notificationElement.innerHTML = message;
+
+    notificationContainer.appendChild(notificationElement);
+
+    setTimeout(() => {
+      notificationElement.remove();
+    }, 3000);
+  };
 
   const getAllBooks = useCallback(async () => {
     try {
@@ -40,25 +42,11 @@ const ManageBooks = () => {
         },
       });
       setBooks(res.data);
-      setError(null);
+      showNotification("Fetched all books successfully!");
     } catch (err) {
-      setError("Failed to fetch books");
+      //showNotification("Failed to fetch books", "error");
     }
   }, [token]);
-
-  const getBookByTitle = useCallback(async () => {
-    try {
-      const res = await axios.get(`http://localhost:5000/books/${title}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setSearchBook(res.data);
-      setError(null);
-    } catch (err) {
-      setError("Failed to fetch the book by title");
-    }
-  }, [token, title]);
 
   const addBook = useCallback(async () => {
     try {
@@ -70,14 +58,9 @@ const ManageBooks = () => {
       uploadImage.append("publisher", formData.publisher);
       uploadImage.append("newPrice", formData.newPrice);
       uploadImage.append("oldPrice", formData.oldPrice);
-      uploadImage.append("image", formData.image); // file input
+      uploadImage.append("image", formData.image);
       uploadImage.append("pdfFile", formData.pdfFile);
 
-      // {
-      // uri: formData.image && formData.image.uri,
-      // filename: formData.image && formData.image.name,
-      // type: formData.image && formData.image.type,
-      //});
       const res = await axios.post(
         "http://localhost:5000/books/upload",
         uploadImage,
@@ -88,32 +71,18 @@ const ManageBooks = () => {
           },
         }
       );
-      setBooks([...books, res.data]);
-      setError(null);
+
+      if (res.status === 201) {
+        setBooks([...books, res.data]);
+        showNotification("Book added successfully!");
+      } else {
+        showNotification("Failed to add book. Please try again.", "error");
+      }
     } catch (err) {
       console.error(err);
-      setError("Failed to add the book");
+      showNotification("Failed to add the book", "error");
     }
   }, [token, formData, books]);
-
-  const updateBook = useCallback(async () => {
-    try {
-      const res = await axios.patch(
-        `http://localhost:5000/books/${title}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setFormData(res.data);
-      setError(null);
-    } catch (err) {
-      setError("Failed to update the book");
-    }
-  }, [token, title, formData]);
 
   const deleteBook = useCallback(async () => {
     try {
@@ -122,10 +91,11 @@ const ManageBooks = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
       setBooks(books.filter((b) => b.title !== title));
-      setError(null);
+      showNotification("Book deleted successfully!");
     } catch (err) {
-      setError("Failed to delete the book");
+      showNotification("Failed to delete the book", "error");
     }
   }, [token, title, books]);
 
@@ -133,7 +103,7 @@ const ManageBooks = () => {
     if (e.target.name === "newPrice" || e.target.name === "oldPrice") {
       const newValue = parseFloat(e.target.value);
       if (isNaN(newValue) || newValue < 0) {
-        setError("Invalid price value");
+        showNotification("Invalid price value", "error");
       } else {
         setFormData({ ...formData, [e.target.name]: newValue });
       }
@@ -141,6 +111,7 @@ const ManageBooks = () => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
+
   const handleImageChange = (e) => {
     setFormData({ ...formData, image: e.target.files[0] });
   };
@@ -152,6 +123,8 @@ const ManageBooks = () => {
   return (
     <div className="book-manager">
       <h1>Book Management</h1>
+
+      <div id="notification-container"></div>
 
       <div className="book-form">
         <h2>Add/Update Book</h2>
@@ -193,21 +166,20 @@ const ManageBooks = () => {
         <input
           type="text"
           name="newPrice"
-          placeholder="newPrice"
+          placeholder="New Price"
           value={formData.newPrice}
           onChange={handleInputChange}
         />
         <input
           type="text"
           name="oldPrice"
-          placeholder="oldPrice"
+          placeholder="Old Price"
           value={formData.oldPrice}
           onChange={handleInputChange}
         />
         <input type="file" name="image" onChange={handleImageChange} />
-        <input type="file" name="pdfFile" onChange={handlePdfChange} />I
+        <input type="file" name="pdfFile" onChange={handlePdfChange} />
         <button onClick={addBook}>Add Book</button>
-        <button onClick={updateBook}>Update Book</button>
       </div>
 
       <div className="fetch-book">
@@ -218,15 +190,7 @@ const ManageBooks = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <button onClick={getBookByTitle}>Fetch Book</button>
         <button onClick={deleteBook}>Delete Book</button>
-        {SearchBook && (
-          <div>
-            <h3>{SearchBook.title}</h3>
-            <p>{SearchBook.author}</p>
-            <p>{SearchBook.genre}</p>
-          </div>
-        )}
       </div>
 
       <div className="all-books">
@@ -240,8 +204,6 @@ const ManageBooks = () => {
           </div>
         ))}
       </div>
-
-      {error && <div className="error">{error}</div>}
     </div>
   );
 };

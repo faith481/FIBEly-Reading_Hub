@@ -32,7 +32,9 @@ cRouter.post("/add", authenticateJWT, async (req, res) => {
             author: book.author,
             genre: book.genre,
             publicationDate: book.publicationDate,
-            image: book.image,
+            image: `http://localhost:5000/${book.image}`,
+            publisher: book.publisher,
+            newPrice: book.newPrice,
           },
         ],
       });
@@ -45,7 +47,9 @@ cRouter.post("/add", authenticateJWT, async (req, res) => {
           author: book.author,
           genre: book.genre,
           publicationDate: book.publicationDate,
-          image: book.image,
+          image: `http://localhost:5000/${book.image}`,
+          publisher: book.publisher,
+          newPrice: book.newPrice,
         });
       } else {
         return res.status(400).json({ message: "Book already in cart" });

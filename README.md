@@ -1,6 +1,126 @@
-**FIBEly Reading Hub - Book Backend API Documentation**
+**FIBEly ReadingHub Frontend Documentation**
+**Overview**
 
-Base URL
+FIBEly ReadingHub is a web-based application that allows users to browse, purchase, and read books online. The frontend is built using React, with a focus on providing a seamless and user-friendly experience.
+
+**Features**
+
+Browse Books: Users can browse through a variety of books categorized under Fiction, Non-Fiction, and Others.
+
+Search Books: Users can search for books by title using the search bar in the navbar.
+
+View Book Details: Each book has a dedicated page displaying its title, author, price, and cover image.
+
+Add to Cart: Users can add books to their cart for easy purchase.
+
+Purchase Books: Users can pay for books using integrated Stripe payments.
+
+Read Books: After purchasing, users can read books directly in the browser via an embedded PDF viewer.
+
+**Getting Started**
+
+**Prerequisites**
+Ensure you have the following installed:
+
+```
+Node.js (v14 or above)
+npm (v6 or above)
+A web browser (Chrome, Firefox, etc.)
+```
+
+Before running the application, make sure you have the following:
+
+```
+Node.js installed on your system.
+Express server running on port 5000.
+```
+
+**Installation**
+
+1. Clone the repository:
+
+```
+git clone https://< personal access token >@github.com/faith481/FIBEly-Reading_Hub
+cd Frontend
+```
+
+2. Install the dependencies:
+
+```
+npm install
+```
+
+**Running the Application**
+To start the development server:
+
+1. start the react app
+
+```
+cd Frontend/src
+npm start App.js
+```
+
+This will run the app in development mode. Open http://localhost:3000 to view it in your browser.
+
+2. start the Express server by installing dependencies
+
+```
+cd Backend
+npm install
+nodemon start server.js
+```
+
+This will run the Express server in development mode. Open http://localhost:5000 to serve the backend api.
+
+**Application Structure**
+
+**Navbar**
+
+Search Bar: Use the search bar at the top to find books by their title.
+
+Category Links: Navigate between different book categories (Fiction, Non-Fiction, Others).
+
+
+Cart: Access your cart to view or purchase selected books.
+
+Login/Logout: Login or logout of your account.
+
+**Free Books Section**
+
+Free Books: Browse through the most popular books in the Fiction category.
+
+View PDF: Click on the "View PDF" button to open and read the embedded PDF file directly.
+
+**Latest Books**
+
+Latest Books: Stay updated with the latest additions to the library.
+
+Book Details: Click on a book to view more details.
+
+**Cart**
+
+View Cart: Check the books you've added to your cart.
+
+Remove from Cart: Remove books from your cart if you change your mind.
+
+Proceed to Checkout: Click on "Checkout" to securely pay for your books using Stripe.
+
+**Stripe Payment Integration**
+
+When you're ready to purchase a book, the app will securely connect to Stripe for payment processing. Follow the prompts to enter your payment details and complete the purchase.
+
+**Known Issues**
+
+PDF Scrolling: The embedded PDF may scroll with the entire page. This will be addressed in future updates.
+
+**Conclusion**
+
+Thank you for using FIBEly ReadingHub! We hope you enjoy your reading experience. If you encounter any issues, please contact our support team.
+
+
+**FIBEly Reading Hub - Backend Book API Documentation**
+
+Base url
 ```
 http://localhost:5000
 ```
@@ -24,11 +144,9 @@ Body:
 ```
 Response: 201 Created
 Testing: Use raw JSON data in Postman.
-
-2. Login
-Endpoint: POST /auth/login
-Description: Log in and receive a JWT token.
-Body:
+   Endpoint: POST /auth/login
+   Description: Log in and receive a JWT token.
+   Body:
 ```
 {
   "email": "bruka@example.com",
@@ -46,25 +164,23 @@ Headers: Include the session token in the request.
 
 **Book Management Routes**
 
-
 1. Get All Books
-Endpoint: GET /books
-Description: Retrieve all books.
-Headers: Include the Authorization header with the JWT token.
-Response: 200 OK with a list of books.
-Testing: Send a GET request to /books.
+   Endpoint: GET /books
+   Description: Retrieve all books.
+   Headers: Include the Authorization header with the JWT token.
+   Response: 200 OK with a list of books.
+   Testing: Send a GET request to /books.
 
 2. Get Book by ID
-Endpoint: GET /books/:bookId
-Description: Retrieve a book by its ID.
-Headers: Include the Authorization header with the JWT token.
-Response: 200 OK with book details.
-Testing: Send a GET request to /books/<bookId>
+   Endpoint: GET /books/:bookId
+   Description: Retrieve a book by its ID.
+   Headers: Include the Authorization header with the JWT token.
+   Response: 200 OK with book details.
+   Testing: Send a GET request to /books/<bookId>
 
 3. Add a New Book
-Endpoint: POST /books
-Description: Create a new book (Publisher Only).
-
+   Endpoint: POST /books
+   Description: Create a new book (Publisher Only).
 
 Body:
 ```
@@ -83,7 +199,9 @@ Testing: Use raw JSON data in Postman.
 4. Update a Book
 Endpoint: PATCH /books/:bookId
 Description: Update book details (Publisher Only).
- 
+Headers: Include the Authorization header with the JWT token.
+Response: 201 Created with the newly added book.
+Testing: Use raw JSON data in Postman
 Body:
 ```
 {
@@ -96,21 +214,18 @@ Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with the updated book details.
 Testing: Send a PATCH request to /books/<bookId> with the fields to update.
 
-
 5. Delete a Book
-Endpoint: DELETE /books/:bookId
-Description: Delete a book (Publisher or Admin Only).
-Headers: Include the Authorization header with the JWT token.
-Response: 200 OK with a confirmation message.
-Testing: Send a DELETE request to /books/<bookId>.
+   Endpoint: DELETE /books/:bookId
+   Description: Delete a book (Publisher or Admin Only).
+   Headers: Include the Authorization header with the JWT token.
+   Response: 200 OK with a confirmation message.
+   Testing: Send a DELETE request to /books/<bookId>.
 
 **Cart Management Routes**
 
-
 1. Add Book to Cart
-Endpoint: POST /cart
-Description: Add a book to the user's cart.
-
+   Endpoint: POST /cart
+   Description: Add a book to the user's cart.
 
 Body:
 ```
@@ -132,7 +247,6 @@ HTTP Method: POST
 
 URL: http://0.0.0.0:5000/cart/remove
 
-
 Authentication
 Required: JWT (JSON Web Token)
 Method: Bearer Token
@@ -141,19 +255,14 @@ Request Headers
 Authorization: Bearer token for user authentication
 Request Body
 Content-Type: application/json
-
-
 Body:
 ```
 {
   "bookId": "string" // ID of the book to be removed
 }
 ```
-
-
 Responses
 Success Response (Status: 200 OK)
-
 
 Content-Type: application/json
 Body:
@@ -172,14 +281,12 @@ Body:
   }
 }
 ```
-Description: The book was successfully removed from the cart, and the response includes the updated cart object.
 
+Description: The book was successfully removed from the cart, and the response includes the updated cart object.
 
 Error Responses
 
-
 Error 400 (Bad Request)
-
 
 Content-Type: application/json
 body:
@@ -190,9 +297,7 @@ body:
 ```
 Description: The specified book ID was not found in the cart, so no book was removed.
 
-
 Error 404 (Not Found)
-
 
 Content-Type: application/json
 Body:
@@ -203,9 +308,7 @@ Body:
 ```
 Description: No cart exists for the specified user.
 
-
 Error 500 (Internal Server Error)
-
 
 Content-Type: application/json
 Body:
@@ -215,8 +318,6 @@ Body:
 }
 ```
 Description: An unexpected error occurred while processing the request.
-
-
 Example Usage
 Request: http
 POST cart/remove HTTP/1.1
@@ -242,6 +343,7 @@ Response (Success):
     "__v": 1
   }
 }
+  
 ```
 Response (Error 400):
 ```
@@ -254,6 +356,7 @@ Response (Error 404):
 {
   "message": "Cart not found"
 }
+  
 ```
 Response (Error 500):
 ```
@@ -263,22 +366,17 @@ Response (Error 500):
 ```
 
 3. Get User Cart
-Endpoint: GET /cart
-Description: Retrieve the current user's cart.
-Headers: Include the Authorization header with the JWT token.
-Response: 200 OK with the cart details.
-Testing: Send a GET request to /cart.
-
+   Endpoint: GET /cart
+   Description: Retrieve the current user's cart.
+   Headers: Include the Authorization header with the JWT token.
+   Response: 200 OK with the cart details.
+   Testing: Send a GET request to /cart.
 
 4. Delete all items in a users Cart
-Endpoint: DELETE /cart
-Description: Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
-
-
+   Endpoint: DELETE /cart
+   Description: Clears all books from the user's cart. This endpoint removes every book from the cart associated with the authenticated user.
 HTTP Method: POST  
 URL: http://0.0.0.0:5000/cart/clearCart
-
-
 Authentication
 Required: JWT (JSON Web Token)
 Method: Bearer Token
@@ -290,7 +388,6 @@ Body: No body content is required for this endpoint.
 Responses
 Success Response (Status: 200 OK)
 Body:
-json
 ```
 {
   "message": "All books removed from cart",
@@ -305,16 +402,12 @@ json
 ```
 Description: The response confirms that all books have been removed from the cart and returns the updated cart object with an empty books array.
 
-
 Error Responses
-
 
 Error 404 (Not Found)
 
-
 Content-Type: application/json
 Body:
-json
 ```
 {
   "message": "Cart not found"
@@ -322,13 +415,10 @@ json
 ```
 Description: The cart for the specified user does not exist.
 
-
 Error 500 (Internal Server Error)
-
 
 Content-Type: application/json
 Body:
-json
 ```
 {
   "error": "Internal Server Error"
@@ -336,20 +426,14 @@ json
 ```
 Description: An unexpected error occurred while processing the request.
 
-
 Example Usage
 Request:
-
-
 http
 POST cart/clearCart
 Host: http://0.0.0.0:5000
 Authorization: Bearer (your JWT)
 Content-Type: application/json
 Response:
-
-
-json
 ```
 {
   "message": "All books removed from cart",
@@ -362,145 +446,101 @@ json
   }
 }
 ```
-**Protected Routes**
-1. Dashboard
-Endpoint: GET /protected/dashboard
-Description: Access the user dashboard.
-Headers: Include the Authorization header with the JWT token.
-Response: 200 OK with a welcome message.
-Testing: Send a GET request to /protected/dashboard.
-
-**PAYMENT ROUTES**
-POST payment/createPayment
-This route is used to create a payment for an order using Stripe as the payment gateway. It requires JWT authentication to ensure that only authorized users can create a payment.
 
 
-URL: http://0.0.0.0:5000/payment/createPayment
+**Order Management Routes**
 
+1. GET order/order/:id
+   Description:
+   Fetches the details of a specific order based on the provided order ID.
+   URL: http://localhost:5000/cart/order/:id
+   Method: GET
 
-Method: POST
-
-
-Authentication: JWT (Bearer Token)
-
-
-Content-Type: application/json
-
-
+URL Parameters
+id (path parameter): The unique identifier of the order you want to retrieve.
+Type: String
+Format: A valid MongoDB ObjectId (e.g., 60c72b2f5f1b2c001c8f3e09)
 Request Headers
-Authorization: Bearer <JWT_TOKEN> (Required)
-Request Body Parameters
-userId (string, required): The ID of the user making the payment.
-cartId (string, required): The ID of the cart associated with the order.
-orderId (string, required): The ID of the order for which payment is being made.
-paymentMethodTypes (array of strings, required): A list of payment method types allowed for the payment (e.g.,
-[
-  'card', 'bank_transfer', 'alipay', 'wechat_pay', 'ideal',
-  'sepa_debit', 'giropay', 'eps', 'bancontact', 'sofort', 'p24',
-  'klarna', 'afterpay_clearpay'
-]).
 
+Authentication
+Required: JWT (JSON Web Token)
+Method: Bearer Token
+Header: Authorization: Bearer <token>
+Request Headers
+Authorization: Bearer token for user authentication
+Request Body: No body content is required for this endpoint.
 
-If not provided, the request will return a 400 error.
-Example Request Body
-{
-  "userId": "66c170abc0fba5728fdf92b1",
-  "cartId": "66c891a657c483a08d530fd0",
-  "orderId": "66c8933157c483a08d530fd8",
-  "paymentMethodTypes": ["card"]
-}
+Example Request
+
+GET order/order/60c72b2f5f1b2c001c8f3e09 HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+Authorization: Bearer <your_token_here>
 Response
-On success, the route returns a 200 status code with the following JSON object:
+Success Response
+Status Code: 200 OK
+Content-Type: application/json
+Response Body:
 
-
-clientSecret (string): The client secret provided by Stripe, used to confirm the payment on the client side.
-paymentId (string): The ID of the payment record stored in MongoDB.
-orderDetails (object): The details of the order for which payment was made, including:
-_id (string): The order ID.
-userId (string): The user ID.
-cartId (object): The cart associated with the order.
-_id (string): The cart ID.
-user (string): The user ID associated with the cart.
-createdAt (string): The timestamp when the cart was created.
-__v (number): The version key (for internal use by MongoDB).
-books (array of objects): The list of books in the order, each containing:
-_id (string): The book ID.
-title (string): The title of the book.
-price (number): The price of the book.
-totalPrice (number): The total price of the order.
-status (string): The status of the order (e.g., processing).
-createdAt (string): The timestamp when the order was created.
-__v (number): The version key (for internal use by MongoDB).
-
-
-Example Successful Response
+```
 {
-  "clientSecret": "pi_3Pqy8c1oFGZuH5MC0Aw7KIKr_secret_c9pwh4ZGUxHkFPANWrmmAb2ae",
-  "paymentId": "66c8977757c483a08d530fde",
-  "orderDetails": {
-    "_id": "66c8933157c483a08d530fd8",
-    "userId": "66c170abc0fba5728fdf92b1",
-    "cartId": {
-      "_id": "66c891a657c483a08d530fd0",
-      "user": "66c170abc0fba5728fdf92b1",
-      "createdAt": "2024-08-23T13:41:58.853Z",
-      "__v": 2
-    },
-    "books": [
-      {
-        "_id": "66c1b4bdaf4efcc3ed23d606",
-        "title": "The God Father",
-        "price": 80
-      },
-      {
-        "_id": "66c600e1cb7f9ee9d188acce",
-        "title": "To Kill a Mockingbird",
-        "price": 80
-      },
-      {
-        "_id": "66c6038b28138f780ed90977",
-        "title": "1984",--_-
-        "price": 80
-      }
-    ],
-    "totalPrice": 240,
-    "status": "processing",
-    "createdAt": "2024-08-23T13:48:33.302Z",
-    "__v": 0
+  "order": {
+	"userId": "66c170abc0fba5728fdf92b1",
+	"cartId": "66c461d358b2751592e0e56c",
+	"_id": "66c70d77bbb8d9ea428597b4",
+	"books": [
+  	{
+    	"_id": "60c72b2f5f1b2c001c8f3e01",
+    	"title": "Example Book",
+    	"price": 29.99
+  	}
+	],
+	"totalPrice": 29.99,
+	"status": "pending",
+	"createdAt": "2024-08-22T10:05:43.082Z",
+	"__v": 0
   }
 }
-
+```
 
 Error Responses
-400 Bad Request: If any required field is missing or if paymentMethodTypes is not a valid array of supported payment methods.
+Order Not Found
 
+Status Code: 404 Not Found
+Content-Type: application/json
+Response Body:
 
-Example:
+```
 {
-  "message": "Invalid payment method type(s) provided"
+  "message": "Order not found",
+  "error": "Order not found"
 }
+```
 
+Internal Server Error
 
-404 Not Found: If the order is not found.
-Example:
+Status Code: 500 Internal Server Error
+Content-Type: application/json
+
+Response Body:
+
+```
 {
-  "message": "Order not found"
+  "message": "Internal Server Error",
+  "error": "<error_message>"
 }
+```
 
-
-500 Internal Server Error: If an internal server error occurs.
-Example:
-{
-  "error": "Internal Server Error"
-}
-
+Error Handling
+404 Not Found:
+If the order with the specified ID does not exist, the endpoint will return a 404 Not Found response with a message indicating that the order was not found.
+500 Internal Server Error: If an unexpected error occurs while processing the request, the endpoint will return a 500 Internal Server Error response with a general error message.
 
 2. POST order/createOrder
-Description:
-Creates a new order for the currently authenticated user.
-URL: http://localhost:5000/cart/createOrder
-Method: POST
-
+   Description:
+   Creates a new order for the currently authenticated user.
+   URL: http://localhost:5000/cart/createOrder
+   Method: POST
 Request Headers
 Content-Type: application/json
 Authorization: Bearer <your_token_here>
@@ -508,7 +548,7 @@ Request Body:
 This endpoint does not require a request body; the order is created based on the authenticated user.
 
 Example Request
-POST order/createOrder HTTP/1.1
+POST cart/createOrder HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
 Authorization: Bearer <your_token_here>
@@ -538,9 +578,8 @@ Response Body:
   }
 }
 ```
-
-Error Responses
-
+  
+**Error Responses**
 Internal Server Error
 Status Code: 500 Internal Server Error
 Content-Type: application/json
@@ -614,8 +653,8 @@ Example Response:
 }
 ```
 
-4. PATCH cart/updateOrderStatus/:orderId
-Summary: Update the status of an existing order.
+4. PATCH order/updateOrderStatus/:orderId
+   Summary: Update the status of an existing order.
 
 Description: This endpoint allows users to update the status of a specific order by providing a valid orderId and a new status value in the request body. The updated order details are returned upon success.
 
@@ -692,6 +731,7 @@ Response Body Example:
   "message": "Internal Server Error"
 }
 ```
+  
 **Stripe webhook**
 paths:
   /webhook:
@@ -743,13 +783,12 @@ components:
 security:
   - stripeSignature: []
 
+**Protected Routes**
 
-
-
-
-
-
-
-
-
+1. Dashboard
+   Endpoint: GET /protected/dashboard
+   Description: Access the user dashboard.
+   Headers: Include the Authorization header with the JWT token.
+   Response: 200 OK with a welcome message.
+   Testing: Send a GET request to /protected/dashboard.
 

@@ -1,25 +1,43 @@
-import p2_img from "./book_2.jpeg";
-import p5_img from "./book_5.jpeg";
-import p3_img from "./book_3.jpeg";
-import p4_img from "./book_4.jpeg";
+import p2_img from "./book_img_the catcher_in_rye.jpg";
+import p5_img from "./book_non_mans_Search_for_meaning.jpg";
+import p3_img from "./book_other_baghdad.jpeg";
+import p4_img from "./book_non_how_to_win_friends.jpg";
 
 let data_product = [
   {
     id: 1,
     name: "Book_2",
     image: p2_img,
-    new_price: 50.0,
-    old_price: 80.5,
+    pdf: "https://giove.isti.cnr.it/demo/eread/Libri/sad/Rye.pdf",
   },
-  { id: 2, name: "Book_4", image: p4_img, new_price: 85.0, old_price: 120.5 },
+  {
+    id: 2,
+    name: "Book_4",
+    image: p4_img,
+    pdf: "https://www.rfpmm.org/pdf/how-to-win-friends-and-influence-people.pdf",
+  },
   {
     id: 3,
     name: "Book_3",
     image: p3_img,
-    new_price: 60.0,
-    old_price: 100.5,
+    pdf: "https://www.dlshq.org/download2/bgita.pdf",
   },
-  { id: 4, name: "Book_5", image: p5_img, new_price: 100.0, old_price: 150.0 },
+  {
+    id: 4,
+    name: "Book_5",
+    image: p5_img,
+    pdf: "https://antilogicalism.com/wp-content/uploads/2017/07/mans-search-for-meaning.pdf",
+  },
 ];
+const handleItemClick = (item) => {
+  if (item.pdf) {
+    window.open(item.pdf, "_blank");
+  }
+};
+
+data_product.map((item) => ({
+  ...item,
+  onClick: () => handleItemClick(item),
+}));
 
 export default data_product;

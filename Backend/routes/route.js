@@ -10,6 +10,7 @@ const cartRoutes = require("./cartRoutes");
 const paymentRoutes = require("./payment_route");
 const frontBooks = require("./frontBooks");
 const latestRoute = require("./latestRoute");
+const roleRoute = require("./admRoute");
 // User Authentication Routes
 router.use("/auth", authRoutes);
 
@@ -18,12 +19,12 @@ router.use("/protected", protectedRoutes);
 //router.use("/auth", authRoutes);
 
 //order route
-router.use("/order", authenticateJWT, orderRouter);
+//router.use("/order", authenticateJWT, orderRouter);
 
 // Book Routes (accessible by publishers and readers)
 router.use("/books", authenticateJWT, booksRoutes);
 
-// Pament Routes
+// Payment Routes
 router.use("/payment", authenticateJWT, paymentRoutes);
 
 // Admin Routes
@@ -42,5 +43,8 @@ router.use("/front", frontBooks);
 
 //route for the latest books
 router.use("/new", latestRoute);
+
+// check user role
+router.use("/role", roleRoute);
 
 module.exports = router;

@@ -1,52 +1,83 @@
-/* Add some basic styling to the container */
+/* Container styling */
 .book-detail-container {
   max-width: 800px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 30px;
   background-image: url("https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?fit=crop&w=1600&q=80");
-  /* background-color: #f9f9f9; */
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Soft white overlay for readability */
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Style the book title */
+/* Book title styling */
 .book-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-/* Add some styling to the image */
+/* Book image styling */
 .book-image {
-  width: 200px;
-  height: 200px;
-  margin: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 220px;
+  height: 220px;
+  margin: 20px auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  display: block;
 }
 
-/* Style the author text */
+/* Author text styling */
 .book-author {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 20px;
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 25px;
+  text-align: center;
 }
 
-/* Add some spacing between elements */
+/* General element spacing */
 .book-detail-container > * {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-/* Make the button look more elegant */
+/* Button styling */
 .get-book-button {
-  background-color: #4caf50;
+  background-color: #5cb85c;
   color: #fff;
-  padding: 10px 20px;
+  padding: 12px 25px;
+  font-size: 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block;
+  margin: 0 auto;
 }
 
 .get-book-button:hover {
-  background-color: #3e8e41;
+  background-color: #4cae4c;
+  transform: translateY(-3px);
+}
+
+/* Button focus state */
+.get-book-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure text is legible against background */
+.book-detail-container,
+.book-title,
+.book-author {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }

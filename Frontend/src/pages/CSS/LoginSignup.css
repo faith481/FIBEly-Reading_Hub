@@ -3,7 +3,7 @@
   background-image: url("https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?fit=crop&w=1600&q=80");
   background-size: cover;
   background-position: center;
-  padding-top: 0;
+  padding-top: 40px;
   box-sizing: border-box;
 }
 
@@ -12,21 +12,21 @@
   height: 600px;
   background: #fff;
   margin: 0 auto;
-  padding: 40px 60px;
+  padding: 60px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .signup-container h1 {
   margin: 20px 0;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 600;
 }
 
 .signup-fields {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 40px;
   margin-top: 30px;
 }
 
@@ -37,7 +37,7 @@
   border: 1px solid #aaa;
   outline: none;
   color: #333;
-  font-size: 18px;
+  font-size: 20px;
   transition: border-color 0.3s;
 }
 
@@ -52,7 +52,7 @@
   background: #4ef96b;
   margin-top: 20px;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
   cursor: pointer;
   border-radius: 75px;
@@ -66,25 +66,30 @@
 .signup-container button:active {
   background: #98ed89e7;
 }
-.loginsignup-container button:active{
-    background: #98ed89e7;
+
+.loginsignup-container button:active {
+  background: #98ed89e7;
 }
-.loginsignup-login{
-    margin-top: 20px;
-    color: #515151;
-    font-size: 18px;
-    font-weight: 500;
+
+.loginsignup-login {
+  margin-top: 20px;
+  color: #515151;
+  font-size: 20px;
+  font-weight: 500;
 }
-.loginsignup-login span{
-    color: red;
-    font-weight: 600;
+
+.loginsignup-login span {
+  color: red;
+  font-weight: 600;
 }
-.loginsignup-agree{
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    gap: 20px;
-    color: #515151;
-    font-size: 18px;
-    font-weight: 500;
+
+.loginsignup-agree {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  gap: 20px;
+  padding-left: 20p;
+  color: #515151;
+  font-size: 20px;
+  font-weight: 500;
 }

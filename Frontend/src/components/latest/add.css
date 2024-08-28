@@ -1,0 +1,23 @@
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.notification.success {
+  background-color: #c6efce;
+  border-color: #b2fffc;
+  color: #3e8e41;
+}
+
+.notification.error {
+  background-color: #f7cac9;
+  border-color: #ffbaba;
+  color: #e74c3c;
+}

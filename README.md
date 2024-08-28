@@ -362,6 +362,13 @@ json
   }
 }
 ```
+**Protected Routes**
+1. Dashboard
+Endpoint: GET /protected/dashboard
+Description: Access the user dashboard.
+Headers: Include the Authorization header with the JWT token.
+Response: 200 OK with a welcome message.
+Testing: Send a GET request to /protected/dashboard.
 
 
 

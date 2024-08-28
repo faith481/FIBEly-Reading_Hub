@@ -495,6 +495,71 @@ Example:
 }
 
 
+2. POST cart/createOrder
+Description:
+Creates a new order for the currently authenticated user.
+URL: http://localhost:5000/cart/createOrder
+Method: POST
+
+Request Headers
+Content-Type: application/json
+Authorization: Bearer <your_token_here>
+Request Body:
+This endpoint does not require a request body; the order is created based on the authenticated user.
+
+Example Request
+POST cart/createOrder HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+Authorization: Bearer <your_token_here>
+Response
+Success Response
+Status Code: 201 Created
+Content-Type: application/json
+Response Body:
+```
+{
+  "message": "Order created successfully",
+  "order": {
+	"userId": "66c170abc0fba5728fdf92b1",
+	"cartId": "66c461d358b2751592e0e56c",
+	"_id": "66c70d77bbb8d9ea428597b4",
+	"books": [
+  	{
+    	"_id": "60c72b2f5f1b2c001c8f3e01",
+    	"title": "Example Book",
+    	"price": 29.99
+  	}
+	],
+	"totalPrice": 29.99,
+	"status": "pending",
+	"createdAt": "2024-08-22T10:05:43.082Z",
+	"__v": 0
+  }
+}
+```
+
+Error Responses
+
+Internal Server Error
+Status Code: 500 Internal Server Error
+Content-Type: application/json
+Response Body:
+```
+{
+  "message": "Internal Server Error",
+  "error": "<error_message>"
+}
+```
+
+Error Handling
+500 Internal Server Error: If an unexpected error occurs while creating the order, the endpoint will return a 500 Internal Server Error response with a general error message.
+
+Notes
+Authentication: Ensure the request includes a valid authentication token in the Authorization header. The endpoint relies on req.user.userId to identify the user, which assumes that the user is authenticated and their ID is available in the request object.
+Order Creation: The order is created based on the current user's cart. If the cart is empty or not found, an error will be thrown by the OrderService.createOrder method.
+
+
 
 
 

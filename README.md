@@ -370,6 +370,132 @@ Headers: Include the Authorization header with the JWT token.
 Response: 200 OK with a welcome message.
 Testing: Send a GET request to /protected/dashboard.
 
+**PAYMENT ROUTES**
+POST payment/createPayment
+This route is used to create a payment for an order using Stripe as the payment gateway. It requires JWT authentication to ensure that only authorized users can create a payment.
+
+
+URL: http://0.0.0.0:5000/payment/createPayment
+
+
+Method: POST
+
+
+Authentication: JWT (Bearer Token)
+
+
+Content-Type: application/json
+
+
+Request Headers
+Authorization: Bearer <JWT_TOKEN> (Required)
+Request Body Parameters
+userId (string, required): The ID of the user making the payment.
+cartId (string, required): The ID of the cart associated with the order.
+orderId (string, required): The ID of the order for which payment is being made.
+paymentMethodTypes (array of strings, required): A list of payment method types allowed for the payment (e.g.,
+[
+  'card', 'bank_transfer', 'alipay', 'wechat_pay', 'ideal',
+  'sepa_debit', 'giropay', 'eps', 'bancontact', 'sofort', 'p24',
+  'klarna', 'afterpay_clearpay'
+]).
+
+
+If not provided, the request will return a 400 error.
+Example Request Body
+{
+  "userId": "66c170abc0fba5728fdf92b1",
+  "cartId": "66c891a657c483a08d530fd0",
+  "orderId": "66c8933157c483a08d530fd8",
+  "paymentMethodTypes": ["card"]
+}
+Response
+On success, the route returns a 200 status code with the following JSON object:
+
+
+clientSecret (string): The client secret provided by Stripe, used to confirm the payment on the client side.
+paymentId (string): The ID of the payment record stored in MongoDB.
+orderDetails (object): The details of the order for which payment was made, including:
+_id (string): The order ID.
+userId (string): The user ID.
+cartId (object): The cart associated with the order.
+_id (string): The cart ID.
+user (string): The user ID associated with the cart.
+createdAt (string): The timestamp when the cart was created.
+__v (number): The version key (for internal use by MongoDB).
+books (array of objects): The list of books in the order, each containing:
+_id (string): The book ID.
+title (string): The title of the book.
+price (number): The price of the book.
+totalPrice (number): The total price of the order.
+status (string): The status of the order (e.g., processing).
+createdAt (string): The timestamp when the order was created.
+__v (number): The version key (for internal use by MongoDB).
+
+
+Example Successful Response
+{
+  "clientSecret": "pi_3Pqy8c1oFGZuH5MC0Aw7KIKr_secret_c9pwh4ZGUxHkFPANWrmmAb2ae",
+  "paymentId": "66c8977757c483a08d530fde",
+  "orderDetails": {
+    "_id": "66c8933157c483a08d530fd8",
+    "userId": "66c170abc0fba5728fdf92b1",
+    "cartId": {
+      "_id": "66c891a657c483a08d530fd0",
+      "user": "66c170abc0fba5728fdf92b1",
+      "createdAt": "2024-08-23T13:41:58.853Z",
+      "__v": 2
+    },
+    "books": [
+      {
+        "_id": "66c1b4bdaf4efcc3ed23d606",
+        "title": "The God Father",
+        "price": 80
+      },
+      {
+        "_id": "66c600e1cb7f9ee9d188acce",
+        "title": "To Kill a Mockingbird",
+        "price": 80
+      },
+      {
+        "_id": "66c6038b28138f780ed90977",
+        "title": "1984",--_-
+        "price": 80
+      }
+    ],
+    "totalPrice": 240,
+    "status": "processing",
+    "createdAt": "2024-08-23T13:48:33.302Z",
+    "__v": 0
+  }
+}
+
+
+Error Responses
+400 Bad Request: If any required field is missing or if paymentMethodTypes is not a valid array of supported payment methods.
+
+
+Example:
+{
+  "message": "Invalid payment method type(s) provided"
+}
+
+
+404 Not Found: If the order is not found.
+Example:
+{
+  "message": "Order not found"
+}
+
+
+500 Internal Server Error: If an internal server error occurs.
+Example:
+{
+  "error": "Internal Server Error"
+}
+
+
+
 
 
 

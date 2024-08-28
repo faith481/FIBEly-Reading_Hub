@@ -692,6 +692,57 @@ Response Body Example:
   "message": "Internal Server Error"
 }
 ```
+**Stripe webhook**
+paths:
+  /webhook:
+    post:
+      summary: Stripe Webhook Endpoint
+      description: |
+        This endpoint listens for Stripe webhook events to handle payment updates. Stripe sends various event notifications to this endpoint to notify the system of changes, such as payment success or failure.
+        
+        The endpoint processes the event, verifies its authenticity using the Stripe signature, and updates the order, payment, and cart information accordingly.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Raw Stripe event object.
+              example:
+                id: evt_1JH5Xe2eZvKYlo2CGh7
+                object: event
+                type: payment_intent.succeeded
+      responses:
+        '200':
+          description: Event received and processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Event received"
+        '400':
+          description: Error in processing the event.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Webhook Error: No signatures found matching the expected signature for payload."
+
+components:
+  securitySchemes:
+    stripeSignature:
+      type: http
+      scheme: bearer
+
+security:
+  - stripeSignature: []
+
 
 
 

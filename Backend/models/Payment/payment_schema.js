@@ -1,20 +1,44 @@
-const User = require("../userModel");
-const Cart = require("../cartModel");
 const mongoose = require("mongoose");
 
-const paymentSchema = new mongoose.Schema({
-  //userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  amount: { type: Number, required: true },
-  currency: { type: String, default: "usd" },
+const orderSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  cartId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Cart",
+    required: true,
+  },
+  books: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
+  totalPrice: {
+    type: Number,
+    required: true,
+    min: [0, "Total price must be a positive number"],
+  },
   status: {
     type: String,
-    enum: ["pending", "completed", "failed"],
+    required: true,
+    enum: ["pending", "completed", "canceled"], // Example statuses, you can modify this list
     default: "pending",
   },
-  stripePaymentIntentId: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const Payment = mongoose.model("Payment", paymentSchema);
+orderSchema.pre("save", function (next) {
+  this.updatedAt = Date.now();
+  next();
+});
 
-module.exports = Payment;
+const Order = mongoose.model("Order", orderSchema);
+
+module.exports = Order;

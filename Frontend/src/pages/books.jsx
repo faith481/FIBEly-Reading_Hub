@@ -44,7 +44,7 @@ const ManageBooks = () => {
       setBooks(res.data);
       showNotification("Fetched all books successfully!");
     } catch (err) {
-      //showNotification("Failed to fetch books", "error");
+      showNotification("Failed to fetch books", "error");
     }
   }, [token]);
 

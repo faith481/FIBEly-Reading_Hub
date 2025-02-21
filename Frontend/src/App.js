@@ -15,7 +15,6 @@ import Cart from "./pages/cart.jsx";
 import BookDetail from "./pages/backendImage.jsx";
 import DescribeBook from "./pages/describeBook.jsx";
 import PaymentPage from "./pages/paymentPage";
-//import { ToastContainer } from "react-toastify";
 
 function App() {
   const location = useLocation();

@@ -12,7 +12,7 @@ const Latest = () => {
   useEffect(() => {
     const fetchLatestBooks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/new/latest", {
+        const response = await axios.get("/new/latest", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -30,7 +30,7 @@ const Cart = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://localhost:5000/cart/add",
+        "/cart/add",
         { bookId },
         {
           headers: {
